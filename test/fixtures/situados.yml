@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  direccion: MyString
+  cod_postal: MyString
+  poblacion_id: 1
+  ldi_id: 1
+
+two:
+  direccion: MyString
+  cod_postal: MyString
+  poblacion_id: 1
+  ldi_id: 1

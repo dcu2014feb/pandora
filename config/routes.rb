@@ -1,7 +1,7 @@
 Walko::Application.routes.draw do
 
   get "busqueda/new"
-  get "busqueda/index"
+  post "busqueda/index"
 
   devise_for :usuarios
 

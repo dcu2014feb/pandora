@@ -1,0 +1,26 @@
+/Begin page content
+.container
+  .row
+    .col-lg-2
+    .col-lg-10
+      %a{:href => "#"}
+        Ordenar por:
+      Valoracion
+
+  /For each location
+  .row
+    .col-lg-2
+    .col-lg-2
+      =image_tag "san_juan_de_la_pena.jpg"
+    .col-lg-2
+      %span.glyphicon.glyphicon-star
+      %span.glyphicon.glyphicon-star
+      %span.glyphicon.glyphicon-star
+      %span.glyphicon.glyphicon-star
+      %span.glyphicon.glyphicon-star-empty
+    .col-lg-2
+      %a{:href => "location.htm"}
+        San Juan de la Peña
+    .col-lg-2
+      %span.glyphicon.glyphicon-plus
+    .col-lg-2

@@ -8,6 +8,11 @@ Bundler.require(:default, Rails.env)
 
 module Walko
   class Application < Rails::Application
+
+    # Adding Webfonts to the Asset Pipeline
+    config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

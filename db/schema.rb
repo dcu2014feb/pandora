@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140528234655) do
+ActiveRecord::Schema.define(version: 20140529000049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comentarios", force: true do |t|
+    t.text     "texto"
+    t.integer  "ldi_id"
+    t.integer  "usuario_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "ldis", force: true do |t|
     t.string   "nombre"
@@ -54,5 +62,15 @@ ActiveRecord::Schema.define(version: 20140528234655) do
   end
 
   add_index "usuarios", ["email"], name: "index_usuarios_on_email", unique: true, using: :btree
+
+  create_table "valoracions", force: true do |t|
+    t.integer  "puntuacion"
+    t.integer  "ldi_id"
+    t.integer  "usuario_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "valoracions", ["ldi_id", "usuario_id"], name: "index_valoracions_on_ldi_id_and_usuario_id", unique: true, using: :btree
 
 end

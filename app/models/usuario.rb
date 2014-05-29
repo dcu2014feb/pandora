@@ -5,4 +5,10 @@ class Usuario < ActiveRecord::Base
   # ,:recoverable, :rememberable, :trackable, :validatable
 
   validates :nombre, :presence => true
+
+  has_many :ldis, :through => :valoracions
+  has_many :valoracions
+
+  has_many :ldis, :through => :comentarios
+  has_many :comentarios
 end

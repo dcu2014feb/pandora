@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  puntuacion: 1
+  ldi_id: 1
+  usuario_email: MyString
+
+two:
+  puntuacion: 1
+  ldi_id: 1
+  usuario_email: MyString

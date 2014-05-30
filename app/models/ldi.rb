@@ -1,4 +1,6 @@
 class Ldi < ActiveRecord::Base
+  mount_uploader :image, ImageUploader
+
   has_many :poblacions, :through => :situados
   has_many :situados
 
@@ -9,6 +11,6 @@ class Ldi < ActiveRecord::Base
   has_many :comentarios
 
   validates :nombre, :presence => true
-  validates :categoria, :presence => true, :inclusion => {:in => ["Bares y pubs", "Restaurantes", "Alojamientos", "Cultural", "Naturaleza"]}
+  validates :categoria, :presence => true, :inclusion => {:in => ["bar_pub", "restaurante", "alojamiento", "cultural", "naturaleza"]}
   validates :descripcion, :presence => true
 end

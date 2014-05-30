@@ -1,22 +1,61 @@
 /Begin page content
 .container
   .row
-    .col-lg-2
-    .col-lg-10
-      %a{:href => "#"}
-        Ordenar por:
-      Valoracion
+    .btn-group
+      .btn-group
+        %button{:type => "button", :class => "btn btn-default dropdown-toggle", "data-toggle" => "dropdown"}
+          Ordenar por
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"}
+              %span.glyphicon-sort-by-order
+              Fecha
+            %a{:href => "#"}
+              %span.glyphicon-sort-by-alphabet-alt
+              Nombre
+            %a{:href => "#"}
+              %span.glyphicon.glyphicon-star
+              Valoración
+            %a{:href => "#"}
+              %span.glyphicon.glyphicon-sort-by-attributes
+              Comentarios
+      .btn-group
+        %button{:type => "button", :class => "btn btn-default dropdown-toggle", "data-toggle" => "dropdown"}
+          Filtrar por
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"}
+              Todos
+            %a{:href => "#"}
+              %span.glyphicon.glyphicon-tree-deciduous
+              Naturaleza
+            %a{:href => "#"}
+              %span.glyphicon.glyphicon-cutlery
+              Restaurantes
+            %a{:href => "#"}
+              %span.glyphicon.glyphicon-glass
+              Bares y pubs
+            %a{:href => "#"}
+              %span.glyphicon.glyphicon-home
+              Alojamientos
+            %a{:href => "#"}
+              %span.glyphicon.glyphicon-tower
+              Cultura
 
   /For each location
   -@resultado.each do |r|
-    .row
+    .row.well
       -# Foto
       .col-lg-2
-        -# Fixme: Reemplazar la foto por las de la BD
-        =image_tag "san_juan_de_la_pena.jpg"
+        - if (r["_type"] == "ldi")
+          =image_tag Ldi.find(r["_source"]["id"]).image, :size => "100"
+        - elsif (r["_type"] == "poblacion")
+          =image_tag Poblacion.find(r["_source"]["id"]).image, :size => "100"
 
       -# Valoración
-      .col-lg-2
+      .col-lg-3
         - if r["_type"] == "ldi"
           - val = calc_valoraciones r["_source"]["id"]
 
@@ -29,15 +68,22 @@
               %span.glyphicon.glyphicon-star-empty
 
       -# Título
-      .col-lg-2
-        = link_to :controller => r["_type"], :action => "show", :id => r["_source"]["id"] do
-          = r["_source"]["nombre"]
-          - if r["_type"] == "ldi"
-            = surround " (", ")" do
-              = Situado.where("ldi_id = ?", r["_source"]["id"]).first.poblacion.nombre
+      .col-lg-6
+        %div
+          %h3
+            = link_to :controller => r["_type"], :action => "show", :id => r["_source"]["id"] do
+              = r["_source"]["nombre"]
+              - if r["_type"] == "ldi"
+                = surround " (", ")" do
+                  = Situado.where("ldi_id = ?", r["_source"]["id"]).first.poblacion.nombre
+        - if r["_type"] == "ldi"
+          %div
+            %h3
+              %small
+                = "#{Ldi.find(r["_source"]["id"]).comentarios.count} mensajes"
 
       -# Icono
-      .col-lg-2
+      .col-lg-1
         - if r["_type"] == "ldi"
           - if r["_source"]["categoria"] == "bar_pub"
             %span.glyphicon.glyphicon-glass

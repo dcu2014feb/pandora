@@ -4,6 +4,8 @@ class Usuario < ActiveRecord::Base
   devise :database_authenticatable, :registerable
   # ,:recoverable, :rememberable, :trackable, :validatable
 
+  mount_uploader :image, ImageUploader
+
   validates :nombre, :presence => true
 
   has_many :ldis, :through => :valoracions

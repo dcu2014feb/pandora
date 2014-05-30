@@ -42,6 +42,9 @@ gem 'haml'
 # Elasticsearch client
 gem 'elasticsearch'
 
+# Images storing
+gem 'carrierwave'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

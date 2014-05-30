@@ -8,19 +8,44 @@
       Valoracion
 
   /For each location
-  .row
-    .col-lg-2
-    .col-lg-2
-      =image_tag "san_juan_de_la_pena.jpg"
-    .col-lg-2
-      %span.glyphicon.glyphicon-star
-      %span.glyphicon.glyphicon-star
-      %span.glyphicon.glyphicon-star
-      %span.glyphicon.glyphicon-star
-      %span.glyphicon.glyphicon-star-empty
-    .col-lg-2
-      %a{:href => "location.htm"}
-        San Juan de la Peña
-    .col-lg-2
-      %span.glyphicon.glyphicon-plus
-    .col-lg-2
+  -@resultado.each do |r|
+    .row
+      -# Foto
+      .col-lg-2
+        -# Fixme: Reemplazar la foto por las de la BD
+        =image_tag "san_juan_de_la_pena.jpg"
+
+      -# Valoración
+      .col-lg-2
+        - if r["_type"] == "ldi"
+          - val = calc_valoraciones r["_source"]["id"]
+
+          - if val == -1
+            Sin valoraciones
+          - else
+            - val.times do
+              %span.glyphicon.glyphicon-star
+            - (5-val).times do
+              %span.glyphicon.glyphicon-star-empty
+
+      -# Título
+      .col-lg-2
+        = link_to :controller => r["_type"], :action => "show", :id => r["_source"]["id"] do
+          = r["_source"]["nombre"]
+          - if r["_type"] == "ldi"
+            = surround " (", ")" do
+              = Situado.where("ldi_id = ?", r["_source"]["id"]).first.poblacion.nombre
+
+      -# Icono
+      .col-lg-2
+        - if r["_type"] == "ldi"
+          - if r["_source"]["categoria"] == "bar_pub"
+            %span.glyphicon.glyphicon-glass
+          - elsif r["_source"]["categoria"] == "restaurante"
+            %span.glyphicon.glyphicon-cutlery
+          - elsif r["_source"]["categoria"] == "naturaleza"
+            %span.glyphicon.glyphicon-tree-deciduous
+          - elsif r["_source"]["categoria"] == "cultural"
+            %span.glyphicon.glyphicon-tower
+          - elsif r["_source"]["categoria"] == "alojamiento"
+            %span.glyphicon.glyphicon-home

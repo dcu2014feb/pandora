@@ -3,6 +3,8 @@ Walko::Application.routes.draw do
   get "busqueda/new"
   post "busqueda/index"
 
+  get "ldi/:id" => "ldi#show"
+  get "poblacion/:id" => "poblacion#show"
   devise_for :usuarios
 
   # The priority is based upon order of creation: first created -> highest priority.

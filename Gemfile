@@ -39,6 +39,9 @@ gem 'devise'
 # Haml
 gem 'haml'
 
+# Elasticsearch client
+gem 'elasticsearch'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

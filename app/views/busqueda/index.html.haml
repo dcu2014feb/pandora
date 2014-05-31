@@ -46,18 +46,18 @@
 
   /For each location
   -@resultado.each do |r|
+    - res = Ldi.find(r["_source"]["id"]) if r["_type"] == "ldi"
+    - res = Poblacion.find(r["_source"]["id"]) if r["_type"] == "poblacion"
+
     .row.well
       -# Foto
       .col-lg-2
-        - if (r["_type"] == "ldi")
-          =image_tag Ldi.find(r["_source"]["id"]).image, :size => "100"
-        - elsif (r["_type"] == "poblacion")
-          =image_tag Poblacion.find(r["_source"]["id"]).image, :size => "100"
+        =image_tag res.image, :size => "100"
 
       -# Valoración
       .col-lg-3
         - if r["_type"] == "ldi"
-          - val = calc_valoraciones r["_source"]["id"]
+          - val = calc_valoraciones res.id
 
           - if val == -1
             Sin valoraciones
@@ -72,29 +72,29 @@
         - if r["_type"] == "ldi"
           %h3
             %div
-              = link_to :controller => "comentario", :action => "new", :id_ldi => r["_source"]["id"] do
-                = r["_source"]["nombre"]
+              = link_to :controller => "comentario", :action => "new", :id_ldi => res.id do
+                = res.nombre
                 = surround " (", ")" do
-                  = Ldi.find(r["_source"]["id"]).poblacion.nombre
+                  = res.poblacion.nombre
             %div
               %small
-                = "#{Ldi.find(r["_source"]["id"]).comentarios.count} mensajes"
+                = "#{res.comentarios.count} mensajes"
         - elsif r["_type"] == "poblacion"
           %h3
             %div
-              = link_to :controller => "poblacion", :action => "show", :id => r["_source"]["id"] do
-                = r["_source"]["nombre"]
+              = link_to :controller => "poblacion", :action => "show", :id => res.id do
+                = res.nombre
 
       -# Icono
       .col-lg-1
         - if r["_type"] == "ldi"
-          - if r["_source"]["categoria"] == "bar_pub"
+          - if res.categoria == "bar_pub"
             %span.glyphicon.glyphicon-glass
-          - elsif r["_source"]["categoria"] == "restaurante"
+          - elsif res.categoria == "restaurante"
             %span.glyphicon.glyphicon-cutlery
-          - elsif r["_source"]["categoria"] == "naturaleza"
+          - elsif res.categoria == "naturaleza"
             %span.glyphicon.glyphicon-tree-deciduous
-          - elsif r["_source"]["categoria"] == "cultural"
+          - elsif res.categoria == "cultural"
             %span.glyphicon.glyphicon-tower
-          - elsif r["_source"]["categoria"] == "alojamiento"
+          - elsif res.categoria == "alojamiento"
             %span.glyphicon.glyphicon-home

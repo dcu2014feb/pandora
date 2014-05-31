@@ -6,6 +6,7 @@ class PoblacionController < ApplicationController
   end
 
   def show
+    @poblacion = Poblacion.find(params[:id])
   end
 
   def edit

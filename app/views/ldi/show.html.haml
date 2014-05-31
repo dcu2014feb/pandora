@@ -1,0 +1,69 @@
+/Begin page content
+.container
+  .row
+    .col-lg-4
+      .row
+        -#.col-lg-3
+        .col-lg-12
+          %h2
+            = @ldi.nombre
+        -#.col-lg-3
+      .row
+        = image_tag @ldi.image, :class => "img-responsive", :size => "300"
+      .row
+        = image_tag 'agua_map.jpg', :class => "img-responsive"
+      .row
+        .col-lg-2
+        .col-lg-8
+          .row
+            Ciudad: Zaragoza
+          .row
+            Categoria:
+            - if @ldi.categoria == "bar_pub"
+              %span.glyphicon.glyphicon-glass
+              Bar/Pub
+            - elsif @ldi.categoria == "restaurante"
+              %span.glyphicon.glyphicon-cutlery
+              Restaurante
+            - elsif @ldi.categoria == "naturaleza"
+              %span.glyphicon.glyphicon-tree-deciduous
+              Naturaleza
+            - elsif @ldi.categoria == "cultural"
+              %span.glyphicon.glyphicon-tower
+              Cultural
+            - elsif @ldi.categoria == "alojamiento"
+              %span.glyphicon.glyphicon-home
+              Alojamiento
+          .row
+            Valoración:
+            %span.glyphicon.glyphicon-star
+            %span.glyphicon.glyphicon-star
+            %span.glyphicon.glyphicon-star
+            %span.glyphicon.glyphicon-star
+            %span.glyphicon.glyphicon-star-empty
+        .col-lg-2
+    .col-lg-1
+    .col-lg-7
+      .row.well
+        %p
+          = @ldi.descripcion
+      .row
+        %strong
+          COMENTARIOS
+      %div{:class => "row", :align => "right"}
+        =form_tag 'http://www.comentario.com' do
+          = text_area_tag 'comentario', "Escriba el comentario…", :class => "form-control", :id => "comentario"
+          = submit_tag "Enviar", :class => "btn btn-default"
+
+      /For each comment
+      - @ldi.comentarios.each do |com|
+        .row.well
+          .col-lg-2
+            = image_tag com.usuario.image, :class => "img_responsive", :size => "80"
+          .col-lg-10
+            .row
+              %strong
+                = com.usuario.nombre
+            .row
+              %p
+                = com.texto

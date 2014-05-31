@@ -6,6 +6,7 @@ class LdiController < ApplicationController
   end
 
   def show
+    @ldi = Ldi.find(params[:id])
   end
 
   def edit

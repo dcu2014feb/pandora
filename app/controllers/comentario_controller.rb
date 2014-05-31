@@ -1,11 +1,18 @@
 class ComentarioController < ApplicationController
   def new
+    @ldi = Ldi.find(params[:id_ldi])
   end
 
   def create
-  end
+    @comentario = Comentario.new
+    @comentario.texto = params[:comentario]
+    @comentario.ldi = Ldi.find(params[:id_ldi])
 
-  def show
+    #Fixme: Colocar el verdadero usuario.
+    @comentario.usuario = Usuario.find(1)
+    @comentario.save!
+
+    redirect_to :back
   end
 
   def edit

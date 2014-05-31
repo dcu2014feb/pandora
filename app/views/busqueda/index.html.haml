@@ -69,18 +69,21 @@
 
       -# Título
       .col-lg-6
-        %div
+        - if r["_type"] == "ldi"
           %h3
-            = link_to :controller => r["_type"], :action => "show", :id => r["_source"]["id"] do
-              = r["_source"]["nombre"]
-              - if r["_type"] == "ldi"
+            %div
+              = link_to :controller => "comentario", :action => "new", :id_ldi => r["_source"]["id"] do
+                = r["_source"]["nombre"]
                 = surround " (", ")" do
                   = Situado.where("ldi_id = ?", r["_source"]["id"]).first.poblacion.nombre
-        - if r["_type"] == "ldi"
-          %div
-            %h3
+            %div
               %small
                 = "#{Ldi.find(r["_source"]["id"]).comentarios.count} mensajes"
+        - elsif r["_type"] == "poblacion"
+          %h3
+            %div
+              = link_to :controller => "poblacion", :action => "show", :id => r["_source"]["id"] do
+                = r["_source"]["nombre"]
 
       -# Icono
       .col-lg-1

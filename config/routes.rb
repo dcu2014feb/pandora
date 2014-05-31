@@ -3,8 +3,11 @@ Walko::Application.routes.draw do
   get "busqueda/new"
   post "busqueda/index"
 
-  get "ldi/:id" => "ldi#show"
+  get "ldi/:id_ldi/comentario" => "comentario#new"
+  post "ldi/:id_ldi/comentario" => "comentario#create"
+
   get "poblacion/:id" => "poblacion#show"
+
   devise_for :usuarios
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -75,7 +75,7 @@
               = link_to :controller => "comentario", :action => "new", :id_ldi => r["_source"]["id"] do
                 = r["_source"]["nombre"]
                 = surround " (", ")" do
-                  = Situado.where("ldi_id = ?", r["_source"]["id"]).first.poblacion.nombre
+                  = Ldi.find(r["_source"]["id"]).poblacion.nombre
             %div
               %small
                 = "#{Ldi.find(r["_source"]["id"]).comentarios.count} mensajes"

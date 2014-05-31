@@ -1,8 +1,7 @@
 class Ldi < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
-  has_many :poblacions, :through => :situados
-  has_many :situados
+  belongs_to :poblacion
 
   has_many :usuarios, :through => :valoracions
   has_many :valoracions

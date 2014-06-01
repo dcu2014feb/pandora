@@ -9,7 +9,9 @@ class ComentarioController < ApplicationController
     @comentario.ldi = Ldi.find(params[:id_ldi])
 
     #Fixme: Colocar el verdadero usuario.
-    @comentario.usuario = Usuario.find(1)
+    if usuario_signed_in?
+      @comentario.usuario = current_usuario
+    end
     @comentario.save!
 
     redirect_to :back

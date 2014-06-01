@@ -3,11 +3,12 @@
   .row
     .col-lg-4
       .row
-        -#.col-lg-3
         .col-lg-12
           %h2
             = @ldi.nombre
-        -#.col-lg-3
+            - if usuario_signed_in? && current_usuario == @ldi.usuario
+              = link_to :controller => "ldi", :action => "edit", :id => @ldi.id do
+                %span.glyphicon.glyphicon-pencil
       .row
         = image_tag @ldi.image, :class => "img-responsive", :size => "300"
       .row
@@ -64,12 +65,27 @@
       /For each comment
       - @ldi.comentarios.each do |com|
         .row.well
+
+          /Foto
           .col-lg-2
-            = image_tag com.usuario.image, :class => "img_responsive", :size => "80"
+            - if com.usuario != nil
+              = image_tag com.usuario.image, :class => "img_responsive", :size => "80"
+            - else
+              = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "80"
+
+          /Nombre
           .col-lg-10
             .row
               %strong
-                = com.usuario.nombre
+                - if com.usuario != nil
+                  = com.usuario.nombre
+                  - if com.usuario == current_usuario
+                    = link_to :action => "edit", :id_com => com.id do
+                      %span.glyphicon.glyphicon-pencil
+                - else
+                  Anónimo
+
+            /Texto
             .row
               %p
                 = com.texto

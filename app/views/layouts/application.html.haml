@@ -12,6 +12,8 @@
   %body
     =render :partial => "layouts/header" unless current_page? root_url
 
+    -#=render :partial => "layouts/header2" unless current_page? root_url
+
     =yield
 
     =render :partial => "layouts/footer"

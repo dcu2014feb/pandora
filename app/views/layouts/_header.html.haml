@@ -1,9 +1,9 @@
--#Fixme: Renderizarlo como parcial
-/Fixed navbar
-%div{:class => "navbar navbar-default navbar-fixed-top", :role => "navigation"}
-  .container
-    .navbar-header.navbar-left
-      %button{:type => "button", :class => "navbar-toggle", "data-toggle" => "collapse", "data-target" => ".navbar-collapse"}
+%nav{:class => "navbar navbar-default", :role =>"navigation"}
+  .container-fluid
+    /Brand and toggle get grouped for better mobile display
+    .col-lg-2.col-xs-1
+    .navbar-header
+      %button{:class => "navbar-toggle", "data-toggle" => "collapse", "data-target" => "#navbar-collapse"}
         %span.sr-only
           Toggle navigation
         %span.icon-bar
@@ -11,11 +11,34 @@
         %span.icon-bar
       = link_to root_url, :class => "navbar-brand" do
         = image_tag 'logo_multideg.png', :size => "120x32"
-    .collapse.navbar-collapse.navbar-right
+
+    /Collect the nav links, forms, and other content for toggling
+    .collapse.navbar-collapse.navbar-right#navbar-collapse
       %ul.nav.navbar-nav
-        %li.active
-          %a{:href => "entrar.html"}
-            Entrar
-        %li
-          %a{:href => "registrar.html"}
-            Registrar
+        - if usuario_signed_in?
+          %li.text-center
+            = link_to :controller => "/ldi", :action => "new" do
+              Recomendar lugar
+          %li.text-center
+            = link_to "#" do
+              Mis lugares recomendados
+          %li.text-center
+            = link_to "#" do
+              Mis lugares valorados
+          %li.text-center
+            = link_to "#" do
+              Mis comentarios
+          %li.divider.nav-divider
+          %li.active.text-center
+            = link_to :edit_usuario_registration do
+              = current_usuario.nombre.upcase
+          %li.text-center
+            = link_to :destroy_usuario_session, :method => 'DELETE' do
+              Salir
+        - else
+          %li.active.text-center
+            = link_to :new_usuario_session do
+              Entrar
+          %li.text-center
+            = link_to :new_usuario_registration do
+              Registrar

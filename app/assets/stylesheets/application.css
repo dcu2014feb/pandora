@@ -13,3 +13,7 @@
  *= require bootstrap.css
  *= require sticky-footer-navbar.css
  */
+
+.logo {
+    padding: 10px
+}

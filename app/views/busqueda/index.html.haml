@@ -60,7 +60,7 @@
           .media-heading
             - if r["_type"] == "ldi"
               %h3
-                .col-lg-10
+                .col-lg-10.col-xs-9
                   .row
                     -# Título
                     = link_to :controller => "comentario", :action => "new", :id_ldi => res.id do
@@ -83,7 +83,7 @@
                       = " | "
                       -# Comentarios
                       = "#{res.comentarios.count} mensajes"
-                .col-lg-2
+                .col-lg-2.col-xs-3
                   -# Icono
                   - if r["_type"] == "ldi"
                     - if res.categoria == "bar_pub"

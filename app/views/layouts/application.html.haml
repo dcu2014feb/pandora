@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      Walko
+      walko
     =stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     =javascript_include_tag "https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"
     =javascript_include_tag "https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"
@@ -10,9 +10,7 @@
     =csrf_meta_tags
 
   %body
-    =render :partial => "layouts/header" unless current_page? root_url
-
-    -#=render :partial => "layouts/header2" unless current_page? root_url
+    =render :partial => "layouts/header" unless (current_page?(root_url) || current_page?(:busqueda_new))
 
     =yield
 

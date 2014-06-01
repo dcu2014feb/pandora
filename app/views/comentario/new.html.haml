@@ -74,28 +74,26 @@
 
       /For each comment
       - @ldi.comentarios.each do |com|
-        .row.well
+        .row.media.well
 
           /Foto
-          .col-lg-2
+          .media-object.pull-left
             - if com.usuario != nil
-              = image_tag com.usuario.image, :class => "img_responsive", :size => "80"
+              = image_tag com.usuario.image, :class => "img_responsive", :size => "64"
             - else
-              = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "80"
+              = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "64"
 
           /Nombre
-          .col-lg-10
-            .row
-              %strong
-                - if com.usuario != nil
-                  = com.usuario.nombre
-                  - if com.usuario == current_usuario
-                    = link_to :action => "edit", :id_com => com.id do
-                      %span.glyphicon.glyphicon-pencil
-                - else
-                  Anónimo
+          .media-body
+            %strong.media-heading
+              - if com.usuario != nil
+                = com.usuario.nombre
+                - if com.usuario == current_usuario
+                  = link_to :action => "edit", :id_com => com.id do
+                    %span.glyphicon.glyphicon-pencil
+              - else
+                Anónimo
 
             /Texto
-            .row
-              %p
-                = com.texto
+            %p
+              = com.texto

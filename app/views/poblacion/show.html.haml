@@ -24,42 +24,46 @@
 
       /For each location
       - @poblacion.ldis.each do |l|
-        .row.well
-          -# Foto
-          .col-lg-2
-            =image_tag l.image, :size => "100"
 
-          -# Valoración
-          .col-lg-3
-            - val = calc_valoraciones l.id
+        .row.media.well.well-sm
+          .media-object.pull-left
+            -# Foto
+            =image_tag l.image, :size => "80"
 
-            - if val == -1
-              Sin valoraciones
-            - else
-              - val.times do
-                %span.glyphicon.glyphicon-star
-              - (5-val).times do
-                %span.glyphicon.glyphicon-star-empty
+          .media-body
+            .media-heading
+              %h3
+                .col-lg-10
+                  .row
+                    -# Título
+                    = link_to :controller => "comentario", :action => "new", :id_ldi => l.id do
+                      = l.nombre
 
-          -# Título
-          .col-lg-6
-            %h4
-              %div
-                = link_to :controller => "comentario", :action => "new", :id_ldi => l.id do
-                  = l.nombre
-              %div
-                %small
-                  = "#{l.comentarios.count} mensajes"
+                  .row
+                    %small
+                      -# Valoración
+                      - val = calc_valoraciones l.id
 
-          -# Icono
-          .col-lg-1
-            - if l.categoria == "bar_pub"
-              %span.glyphicon.glyphicon-glass
-            - elsif l.categoria == "restaurante"
-              %span.glyphicon.glyphicon-cutlery
-            - elsif l.categoria == "naturaleza"
-              %span.glyphicon.glyphicon-tree-deciduous
-            - elsif l.categoria == "cultural"
-              %span.glyphicon.glyphicon-tower
-            - elsif l.categoria == "alojamiento"
-              %span.glyphicon.glyphicon-home
+                      - if val != -1
+                        - val.times do
+                          %span.glyphicon.glyphicon-star
+                        - (5-val).times do
+                          %span.glyphicon.glyphicon-star-empty
+                      - else
+                        Sin valoraciones
+
+                      = " | "
+                      -# Comentarios
+                      = "#{l.comentarios.count} mensajes"
+                .col-lg-2
+                  -# Icono
+                  - if l.categoria == "bar_pub"
+                    %span.glyphicon.glyphicon-glass
+                  - elsif l.categoria == "restaurante"
+                    %span.glyphicon.glyphicon-cutlery
+                  - elsif l.categoria == "naturaleza"
+                    %span.glyphicon.glyphicon-tree-deciduous
+                  - elsif l.categoria == "cultural"
+                    %span.glyphicon.glyphicon-tower
+                  - elsif l.categoria == "alojamiento"
+                    %span.glyphicon.glyphicon-home

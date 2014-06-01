@@ -17,38 +17,48 @@
         %dl.dl-horizontal
           %dt
             Ciudad
-          %dd
-            = @ldi.poblacion.nombre
+            %dd
+              = @ldi.poblacion.nombre
           %dt
             Categoria
-          %dd
-            - if @ldi.categoria == "bar_pub"
-              %span.glyphicon.glyphicon-glass
-              Bar/Pub
-            - elsif @ldi.categoria == "restaurante"
-              %span.glyphicon.glyphicon-cutlery
-              Restaurante
-            - elsif @ldi.categoria == "naturaleza"
-              %span.glyphicon.glyphicon-tree-deciduous
-              Naturaleza
-            - elsif @ldi.categoria == "cultural"
-              %span.glyphicon.glyphicon-tower
-              Cultural
-            - elsif @ldi.categoria == "alojamiento"
-              %span.glyphicon.glyphicon-home
-              Alojamiento
+            %dd
+              - if @ldi.categoria == "bar_pub"
+                %span.glyphicon.glyphicon-glass
+                Bar/Pub
+              - elsif @ldi.categoria == "restaurante"
+                %span.glyphicon.glyphicon-cutlery
+                Restaurante
+              - elsif @ldi.categoria == "naturaleza"
+                %span.glyphicon.glyphicon-tree-deciduous
+                Naturaleza
+              - elsif @ldi.categoria == "cultural"
+                %span.glyphicon.glyphicon-tower
+                Cultural
+              - elsif @ldi.categoria == "alojamiento"
+                %span.glyphicon.glyphicon-home
+                Alojamiento
           %dt
             Valoración
-          %dd
-            - val = calc_valoraciones @ldi.id
+            %dd
+              - val = calc_valoraciones @ldi.id
 
-            - if val == -1
-              Sin valoraciones
-            - else
-              - val.times do
-                %span.glyphicon.glyphicon-star
-              - (5-val).times do
-                %span.glyphicon.glyphicon-star-empty
+              - if val == -1
+                Sin valoraciones
+              - else
+                - val.times do
+                  %span.glyphicon.glyphicon-star
+                - (5-val).times do
+                  %span.glyphicon.glyphicon-star-empty
+          - if (@ldi.telefono != nil)
+            %dt
+              Teléfono
+            %dd
+              = @ldi.telefono
+          - if (@ldi.email != nil)
+            %dt
+              Email
+            %dd
+              = @ldi.email
     .col-lg-1
     .col-lg-7
       .row.well

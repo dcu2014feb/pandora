@@ -10,12 +10,7 @@
     =csrf_meta_tags
 
   %body
-    =render :partial => "layouts/header"
-
-    %p.notice
-      =notice
-    %p.alert
-      =alert
+    =render :partial => "layouts/header" unless current_page? root_url
 
     =yield
 

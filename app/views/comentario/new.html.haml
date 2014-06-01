@@ -13,13 +13,14 @@
       .row
         = image_tag 'agua_map.jpg', :class => "img-responsive"
       .row
-        .col-lg-2
-        .col-lg-8
-          .row
-            Ciudad:
+        %dl.dl-horizontal
+          %dt
+            Ciudad
+          %dd
             = @ldi.poblacion.nombre
-          .row
-            Categoria:
+          %dt
+            Categoria
+          %dd
             - if @ldi.categoria == "bar_pub"
               %span.glyphicon.glyphicon-glass
               Bar/Pub
@@ -35,8 +36,9 @@
             - elsif @ldi.categoria == "alojamiento"
               %span.glyphicon.glyphicon-home
               Alojamiento
-          .row
-            Valoración:
+          %dt
+            Valoración
+          %dd
             - val = calc_valoraciones @ldi.id
 
             - if val == -1
@@ -46,14 +48,13 @@
                 %span.glyphicon.glyphicon-star
               - (5-val).times do
                 %span.glyphicon.glyphicon-star-empty
-        .col-lg-2
     .col-lg-1
     .col-lg-7
       .row.well
         %p
           = @ldi.descripcion
       .row
-        %strong
+        %strong.lead
           COMENTARIOS
       %div{:class => "row", :align => "right"}
         =form_tag :controller => "comentario", :action => "create" do

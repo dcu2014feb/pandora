@@ -1,10 +1,13 @@
 /Begin page content
-.container
+-#.container
+.container-fluid.jumbotron
+  .row.text-center
+    .col-lg-12
+      = image_tag 'logo_multideg.png', :size => '800x221'
   .row
     .col-lg-3
-    .col-lg-6
-      .input-group
-        =form_tag :action => "index" do
-          =text_field_tag "query"
-          =submit_tag "Go!", :class => "btn btn-default"
+    .col-lg-6.input-group
+      =form_tag :action => "index" do
+        =text_field_tag "query", nil, :class => "form-control"
+        =submit_tag "Encontrar", :class => "btn btn-default"
     .col-lg-3

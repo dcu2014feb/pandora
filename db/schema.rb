@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140531163355) do
     t.datetime "updated_at"
     t.string   "image"
     t.integer  "poblacion_id"
+    t.integer  "usuario_id"
   end
 
   create_table "poblacions", force: true do |t|
@@ -43,17 +44,6 @@ ActiveRecord::Schema.define(version: 20140531163355) do
     t.datetime "updated_at"
     t.string   "image"
   end
-
-  create_table "situados", force: true do |t|
-    t.string   "direccion"
-    t.string   "cod_postal"
-    t.integer  "poblacion_id"
-    t.integer  "ldi_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "situados", ["poblacion_id", "ldi_id"], name: "index_situados_on_poblacion_id_and_ldi_id", unique: true, using: :btree
 
   create_table "usuarios", force: true do |t|
     t.string   "nombre"

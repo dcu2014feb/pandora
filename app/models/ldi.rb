@@ -3,6 +3,8 @@ class Ldi < ActiveRecord::Base
 
   belongs_to :poblacion
 
+  belongs_to :usuario
+
   has_many :usuarios, :through => :valoracions
   has_many :valoracions
 

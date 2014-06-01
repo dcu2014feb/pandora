@@ -8,6 +8,8 @@ class Usuario < ActiveRecord::Base
 
   validates :nombre, :presence => true
 
+  has_many :ldis
+
   has_many :ldis, :through => :valoracions
   has_many :valoracions
 

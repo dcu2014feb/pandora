@@ -1,18 +1,30 @@
-%h2
-Iniciar sesión
+.jumbotron.container-fluid
+  %h1.text-center
+    Iniciar sesión
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+  .col-lg-3
+  .col-lg-6
+    .form-horizontal
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        .form-group.row
+          .col-lg-2
+          .col-lg-2.text-right
+            = f.label :email, :class => "control-label"
+          .col-lg-5
+            = f.email_field :email, :autofocus => true, :class => "form-control"
+          .col-lg-3
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+        .form-group.row
+          .col-lg-2
+          .col-lg-2.text-right
+            = f.label :password, :class => "control-label"
+          .col-lg-5
+            = f.password_field :password, :class => "form-control"
+          .col-lg-3
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+        .form-group.row
+          .col-lg-9
+            .text-right
+              = f.submit "Entrar", :class => "btn btn-default"
 
-  <div><%= f.submit "Entrar" %></div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  .col-lg-3

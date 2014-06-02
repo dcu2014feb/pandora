@@ -1,29 +1,56 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+.container-fluid
+  %h1.text-center
+    Editar usuario
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+  .col-lg-4
+  .col-lg-4
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put}, :class => "form") do |f|
+      = devise_error_messages!
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+      .form-group
+        = f.label :nombre
+        = f.text_field :nombre, :autofocus => true, :class => "form-control"
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      .form-group
+        = f.label :apellidos
+        = f.text_field :apellidos, :autofocus => false, :class => "form-control"
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+      .form-group
+        = f.label :email
+        = f.email_field :email, :autofocus => true, :class => "form-control"
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+      .form-group
+        = f.label :password, "Contraseña nueva"
+        %i
+          (Déjalo en blanco si no quieres cambiarla)
+        = f.password_field :password, :class => "form-control"
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
+      .form-group
+        = f.label :password_confirmation, "Contraseña nueva (confirmación)"
+        = f.password_field :password_confirmation, :class => "form-control"
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
 
-<h3>Cancel my account</h3>
+      .form-group
+        = f.label :current_password, "Contraseña actual"
+        %i
+          (Es necesaria tu contraseña actual para modificar los cambios)
+        = f.password_field :current_password, :class => "form-control"
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+      .form-group
+        = f.label :image, "Imagen"
+        = f.file_field :image, :class => "form-control"
 
-<%= link_to "Back", :back %>
+      .text-right
+        = f.submit "Actualizar", :class => "btn btn-default"
+
+    %h3
+      Cerrar mi cuenta
+
+    %p
+      Cerrar tu cuenta es un paso irreversible. Los lugares que hayas recomendado, tus comentarios y valoraciones serán
+      anónimos a partir de ahora.
+      .text-right
+        = button_to "Cerrar mi cuenta", registration_path(resource_name), :class => "btn btn-danger",
+        :data => { :confirm => "¿Estás realmente seguro? Tus datos se perderán para siempre." }, :method => :delete
+
+  .col-lg-4

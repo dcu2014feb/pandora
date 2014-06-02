@@ -8,6 +8,7 @@ Walko::Application.routes.draw do
   get "ldi/:id_ldi/comentario/edit/:id_com" => "comentario#edit"
 
   get "ldi/new" => "ldi#new"
+  post "ldi/new" => "ldi#create"
   get "ldi/edit/:id" => "ldi#edit"
 
   get "poblacion/:id" => "poblacion#show"

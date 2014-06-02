@@ -1,0 +1,37 @@
+.container-fluid
+  %h1.text-center
+    Nuevo usuario
+
+  .col-lg-4
+  .col-lg-4
+    = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :class => "form") do |f|
+      = devise_error_messages!
+
+      .form-group
+        = f.label :nombre
+        = f.text_field :nombre, :autofocus => true, :class => "form-control"
+
+      .form-group
+        = f.label :apellidos
+        = f.text_field :apellidos, :autofocus => false, :class => "form-control"
+
+      .form-group
+        = f.label :email
+        = f.email_field :email, :autofocus => true, :class => "form-control"
+
+      .form-group
+        = f.label :password
+        = f.password_field :password, :class => "form-control"
+
+      .form-group
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, :class => "form-control"
+
+      .form-group
+        = f.label :image
+        = f.file_field :image, :class => "form-control"
+
+      .text-right
+        = f.submit "Registrar", :class => "btn btn-default"
+
+  .col-lg-4

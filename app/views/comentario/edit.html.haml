@@ -68,9 +68,11 @@
         %strong.lead
           COMENTARIOS
       %div{:class => "row", :align => "right"}
-        =form_tag :controller => "comentario", :action => "create" do
-          = text_area_tag 'comentario', "Escriba el comentario…", :class => "form-control", :id => "comentario"
-          = submit_tag "Enviar", :class => "btn btn-default"
+        =form_tag :controller => "comentario", :action => "update", :id_com => @comentario.id, :id_ldi => @ldi.id do
+          = text_area_tag "texto", @comentario.texto, :class => "form-control"
+          = submit_tag "Actualizar", :class => "btn btn-default"
+        = button_to "Eliminar", {:controller => "comentario", :action => "destroy", :id_com => @comentario.id,
+        :id_ldi => @ldi.id}, :method => "delete"
 
       /For each comment
       - @ldi.comentarios.each do |com|

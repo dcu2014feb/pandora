@@ -7,5 +7,6 @@ class ApplicationController < ActionController::Base
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) << [:nombre, :apellidos, :image]
+    devise_parameter_sanitizer.for(:account_update) << [:nombre, :apellidos, :image]
   end
 end

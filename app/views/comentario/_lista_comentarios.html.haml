@@ -1,6 +1,6 @@
 .container-fluid
   /For each comment
-  - @ldi.comentarios.each do |com|
+  - @comentarios.each do |com|
     .row.media.well
 
       /Foto
@@ -29,3 +29,6 @@
         /Texto
         %p
           = com.texto
+
+  .pagination.center-block.text-center
+    = paginate @comentarios

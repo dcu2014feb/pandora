@@ -3,6 +3,7 @@ class ComentarioController < ApplicationController
 
   def new
     @ldi = Ldi.find(params[:id_ldi])
+    @comentarios = @ldi.comentarios.page(params[:page]).per(5)
   end
 
   def create

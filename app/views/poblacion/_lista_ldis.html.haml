@@ -4,7 +4,7 @@
       LUGARES DE INTERÉS
 
   /For each location
-  - @poblacion.ldis.each do |ldi|
+  - @ldis.each do |ldi|
     .row.media.well.well-sm
       .media-object.pull-left
         -# Foto
@@ -50,3 +50,6 @@
                   %span.glyphicon.glyphicon-tower
                 - when  "alojamiento"
                   %span.glyphicon.glyphicon-home
+
+  .text-center
+    = paginate @ldis

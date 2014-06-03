@@ -3,6 +3,7 @@
     %h2.text-center
       = @poblacion.nombre
   .row
-    = image_tag @poblacion.image, :class => "img-responsive", :size => "300"
+    -# Fixme: Versionar imagen
+    = image_tag @poblacion.image, :class => "img-responsive center-block", :size => "300"
   .row
-    = image_tag 'agua_map.jpg', :class => "img-responsive"
+    = image_tag 'agua_map.jpg', :class => "img-responsive center-block"

@@ -12,17 +12,19 @@
           -# Fixme: Versionar tamaño imagen
           = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "64"
 
-      /Nombre
+      /Nombre y fecha
       .media-body
         %strong.media-heading
           - if com.usuario != nil
-            = com.usuario.nombre
             - if com.usuario == current_usuario
               -# Fixme: Evitar hardcodear ruta
               = link_to :action => "edit", :id_ldi => @ldi.id, :id_com => com.id do
                 %span.glyphicon.glyphicon-pencil
+            = com.usuario.nombre
           - else
             Anónimo
+        %small
+          = time_ago_in_words com.created_at
 
         /Texto
         %p

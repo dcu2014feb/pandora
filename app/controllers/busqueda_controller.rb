@@ -5,6 +5,6 @@ class BusquedaController < ApplicationController
   end
 
   def index
-    @resultado = elasticsearch_todo(params[:query])["hits"]["hits"]
+    @resultados = Kaminari.paginate_array(elasticsearch_todo(params[:query])["hits"]["hits"]).page(params[:page])
   end
 end

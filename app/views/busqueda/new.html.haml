@@ -7,7 +7,7 @@
       = image_tag 'logo_multideg.png', :size => '800x221', :class => "img-responsive"
     .row
       .col-lg-1.col-xs-1
-      =form_tag :action => "index" do
+      = form_tag({:controler => 'busqueda', :action => 'index'}, :method => :get) do
         .col-lg-8.col-xs-9.input-group
           =text_field_tag "query", nil, :autofocus => true, :class => "form-control"
           %span.input-group-btn

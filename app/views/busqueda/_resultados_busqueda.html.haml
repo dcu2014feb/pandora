@@ -1,7 +1,7 @@
 .container-fluid
   .list-group
     /For each location
-    - @resultado.each do |r|
+    - @resultados.each do |r|
       -# res es el modelo entero de cada resultado de ES
       - res = Ldi.find(r["_source"]["id"]) if r["_type"] == "ldi"
       - res = Poblacion.find(r["_source"]["id"]) if r["_type"] == "poblacion"
@@ -58,3 +58,5 @@
                   -# Fixme: Evitar hardcodear ruta
                   = link_to :controller => "poblacion", :action => "show", :id => res.id do
                     = res.nombre
+    .text-center
+      = paginate @resultados

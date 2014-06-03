@@ -1,7 +1,7 @@
 Walko::Application.routes.draw do
 
   get "busqueda/new"
-  post "busqueda/index"
+  get "busqueda/index"
 
   get "ldi/:id_ldi/comentario" => "comentario#new"
   post "ldi/:id_ldi/comentario" => "comentario#create"

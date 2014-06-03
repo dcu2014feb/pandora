@@ -1,0 +1,42 @@
+.btn-group
+  .btn-group
+    %button{:type => "button", :class => "btn btn-default dropdown-toggle", "data-toggle" => "dropdown"}
+      Ordenar por
+      %span.caret
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"}
+          %span.glyphicon-sort-by-order
+          Fecha
+        %a{:href => "#"}
+          %span.glyphicon-sort-by-alphabet-alt
+          Nombre
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-star
+          Valoración
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-sort-by-attributes
+          Comentarios
+  .btn-group
+    %button{:type => "button", :class => "btn btn-default dropdown-toggle", "data-toggle" => "dropdown"}
+      Filtrar por
+      %span.caret
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"}
+          Todos
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-tree-deciduous
+          Naturaleza
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-cutlery
+          Restaurantes
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-glass
+          Bares y pubs
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-home
+          Alojamientos
+        %a{:href => "#"}
+          %span.glyphicon.glyphicon-tower
+          Cultura

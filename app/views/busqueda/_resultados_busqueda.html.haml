@@ -1,0 +1,59 @@
+.container-fluid
+  /For each location
+  - @resultado.each do |r|
+    -# res es el modelo entero de cada resultado de ES
+    - res = Ldi.find(r["_source"]["id"]) if r["_type"] == "ldi"
+    - res = Poblacion.find(r["_source"]["id"]) if r["_type"] == "poblacion"
+
+    .row.media.well.well-sm
+      .media-object.pull-left
+        -# Foto
+        -# Fixme: Versionar el tamaño de foto (con carrierwave)
+        =image_tag res.image, :size => "80"
+
+      .media-body
+        .media-heading
+          - if res.instance_of? Ldi
+            %h3
+              .col-lg-10.col-xs-9
+                .row
+                  -# Título
+                  -# Fixme: Evitar hardcodear ruta
+                  = link_to :controller => "comentario", :action => "new", :id_ldi => res.id do
+                    = res.nombre + " (" + res.poblacion.nombre + ")"
+
+                .row
+                  %small
+                    -# Valoraciones
+                    - val = calcular_valoraciones res.id
+                    - if val != -1
+                      - val.times do
+                        %span.glyphicon.glyphicon-star
+                      - (5-val).times do
+                        %span.glyphicon.glyphicon-star-empty
+                    - else
+                      Sin valoraciones
+
+                    -# Comentarios
+                    = " | #{res.comentarios.count} mensajes"
+
+              .col-lg-2.col-xs-3
+                -# Icono
+                - case res.categoria
+                  - when  "bar_pub"
+                    %span.glyphicon.glyphicon-glass
+                  - when  "restaurante"
+                    %span.glyphicon.glyphicon-cutlery
+                  - when  "naturaleza"
+                    %span.glyphicon.glyphicon-tree-deciduous
+                  - when  "cultural"
+                    %span.glyphicon.glyphicon-tower
+                  - when  "alojamiento"
+                    %span.glyphicon.glyphicon-home
+
+          - elsif res.instance_of? Poblacion
+            %h3
+              %div
+                -# Fixme: Evitar hardcodear ruta
+                = link_to :controller => "poblacion", :action => "show", :id => res.id do
+                  = res.nombre

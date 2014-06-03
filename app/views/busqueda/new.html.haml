@@ -9,7 +9,7 @@
       .col-lg-1.col-xs-1
       =form_tag :action => "index" do
         .col-lg-8.col-xs-9.input-group
-          =text_field_tag "query", nil, :class => "form-control"
+          =text_field_tag "query", nil, :autofocus => true, :class => "form-control"
           %span.input-group-btn
             =submit_tag "Encontrar", :class => "btn btn-default"
       .col-lg-1

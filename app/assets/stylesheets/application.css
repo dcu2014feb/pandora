@@ -17,3 +17,8 @@
 .logo {
     padding: 10px
 }
+
+.delete-btn {
+    margin-bottom: 15px !important;
+    margin-right: 15px;
+}

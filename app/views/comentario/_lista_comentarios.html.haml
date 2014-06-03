@@ -8,10 +8,10 @@
         .media-object.pull-left
           - if com.usuario != nil
             -# Fixme: Versionar tamaño imagen
-            = image_tag com.usuario.image, :class => "img_responsive", :size => "64"
+            = image_tag com.usuario.image, :class => "img-responsive img-thumbnail", :size => "64"
           - else
             -# Fixme: Versionar tamaño imagen
-            = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "64"
+            = image_tag 'usuario_anon.png', :class => "img-responsive img-thumbnail", :size => "64"
 
         /Nombre y fecha
         .media-body

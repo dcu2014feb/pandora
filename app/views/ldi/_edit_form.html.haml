@@ -35,8 +35,14 @@
     = f.text_area :descripcion, :autofocus => false, :class => "form-control"
 
   .form-group
-    = f.label :image, "Imagen"
-    = f.file_field :image, :class => "form-control"
+    .form-group
+      = f.label :image, "Imagen"
+      %i
+        (La imagen será subida después de actualizar el perfil)
+    .form-group
+      = image_tag @ldi.image, :class => "responsive-image img-thumbnail center-block"
+    .form-group
+      = f.file_field :image, :class => "form-control"
 
   .text-right
     = f.submit "Actualizar", :class => "btn btn-default pull-right"

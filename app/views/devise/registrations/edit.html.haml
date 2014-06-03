@@ -1,13 +1,10 @@
 .container-fluid
-  .col-lg-1
+  %h1.text-center.page-header
+    Editar perfil
+    %small
+      = @usuario.nombre + " " + @usuario.apellidos
   .col-lg-4
-    %strong
-      Imagen actual
-    = image_tag resource.image, :class => "responsive-image"
-  .col-lg-2
   .col-lg-4
-    %h1.text-center
-      Editar usuario
     = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :put}, :class => "form") do |f|
       = devise_error_messages!
 
@@ -33,7 +30,6 @@
         = f.label :password_confirmation, "Contraseña nueva (confirmación)"
         = f.password_field :password_confirmation, :class => "form-control"
 
-
       .form-group
         = f.label :current_password, "Contraseña actual"
         %i
@@ -44,6 +40,7 @@
         = f.label :image, "Imagen"
         %i
           (La imagen será subida después de actualizar el perfil)
+        = image_tag resource.image, :class => "responsive-image center-block"
         = f.file_field :image, :class => "form-control"
 
       .text-right
@@ -59,4 +56,4 @@
         = button_to "Cerrar mi cuenta", registration_path(resource_name), :class => "btn btn-danger",
         :data => { :confirm => "¿Estás realmente seguro? Tus datos se perderán para siempre." }, :method => :delete
 
-  .col-lg-1
+  .col-lg-4

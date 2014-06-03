@@ -3,6 +3,9 @@ class LdiController < ApplicationController
   include LdiHelper
 
   before_action :ldi_params, :only => [:create, :update]
+  before_action :authenticate_usuario!
+  before_action :encontrar_ldi, :only => [:edit, :update, :destroy]
+  before_action :verify_usuario, :only => [:edit, :update, :destroy]
 
   def new
     @ldi = Ldi.new
@@ -23,12 +26,10 @@ class LdiController < ApplicationController
   end
 
   def edit
-    @ldi = Ldi.find(params[:id])
   end
 
   def update
     ldi = params[:ldi]                                    # Modelo nuevo obtenido del formulario
-    @ldi = Ldi.find(params[:id])                          # Modelo viejo obtenido de la BBDD
 
     if @ldi.poblacion.nombre != ldi[:poblacion][:nombre]           # Si se ha modificado la población en el formulario
       res = elasticsearch_poblacion(ldi[:poblacion][:nombre])      # Buscar la población del formulario en ES
@@ -45,7 +46,6 @@ class LdiController < ApplicationController
 
   def destroy
     # Eliminar ldi de la BBDD
-    @ldi = Ldi.find(params[:id])
     @ldi.destroy!
 
     # Eliminar ldi de ES
@@ -57,8 +57,18 @@ class LdiController < ApplicationController
 
   private
 
+  def encontrar_ldi
+    @ldi = Ldi.find(params[:id])
+  end
+
   def ldi_params
     #Fixme: Evitar pasar todos los parámetros
     params.require(:ldi).permit!
+  end
+
+  def verify_usuario
+    if current_usuario != @ldi.usuario
+      render :status => :forbidden, :text => "Prohibido"
+    end
   end
 end

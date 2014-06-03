@@ -1,5 +1,7 @@
 class ComentarioController < ApplicationController
   before_action :encontrar_comentario, :only => [:edit, :update, :destroy]
+  before_action :authenticate_usuario!, :only => [:edit, :update, :destroy]
+  before_action :verify_usuario, :only => [:edit, :update, :destroy]
 
   def new
     @ldi = Ldi.find(params[:id_ldi])
@@ -41,5 +43,11 @@ class ComentarioController < ApplicationController
 
   def encontrar_comentario
     @comentario = Comentario.find(params[:id_com])
+  end
+
+  def verify_usuario
+    if current_usuario != @comentario.usuario
+      render :status => :forbidden, :text => "Prohibido"
+    end
   end
 end

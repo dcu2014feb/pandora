@@ -6,11 +6,11 @@
       -# Fixme: Versionar el logo con carrierwave
       = image_tag 'logo_multideg.png', :size => '800x221', :class => "img-responsive"
     .row
-      .col-lg-1
+      .col-lg-1.col-xs-1
       =form_tag :action => "index" do
-        .col-lg-6.col-xs-8
+        .col-lg-8.col-xs-9.input-group
           =text_field_tag "query", nil, :class => "form-control"
-        .col-lg-2.col-xs-2#btn-encontrar
-          =submit_tag "Encontrar", :class => "btn btn-default"
+          %span.input-group-btn
+            =submit_tag "Encontrar", :class => "btn btn-default"
       .col-lg-1
   .col-lg-3

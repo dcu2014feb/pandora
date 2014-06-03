@@ -1,8 +1,9 @@
-.container
-  .col-lg-2
-  .col-lg-8
-    .row
-      = render :partial => "ordenar_filtrar"
-    .row
-      = render :partial => "resultados_busqueda"
-  .col-lg-2
+- unless @resultado.empty?
+  .container
+    .col-lg-2
+    .col-lg-8
+      .row
+        = render :partial => "ordenar_filtrar"
+      .row
+        = render :partial => "resultados_busqueda"
+    .col-lg-2

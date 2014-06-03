@@ -4,52 +4,53 @@
       LUGARES DE INTERÉS
 
   /For each location
-  - @ldis.each do |ldi|
-    .row.media.well.well-sm
-      .media-object.pull-left
-        -# Foto
-        -# Fixme: Versionar tamaño
-        =image_tag ldi.image, :size => "80"
+  .list-group
+    - @ldis.each do |ldi|
+      .row.media.list-group-item
+        .media-object.pull-left
+          -# Foto
+          -# Fixme: Versionar tamaño
+          =image_tag ldi.image, :size => "80"
 
-      .media-body
-        .media-heading
-          %h3
-            .col-lg-10
-              .row
-                -# Título
-                -# Fixme: Evitar hardcodear ruta
-                = link_to :controller => "comentario", :action => "new", :id_ldi => ldi.id do
-                  = ldi.nombre
+        .media-body
+          .media-heading
+            %h3
+              .col-lg-10
+                .row
+                  -# Título
+                  -# Fixme: Evitar hardcodear ruta
+                  = link_to :controller => "comentario", :action => "new", :id_ldi => ldi.id do
+                    = ldi.nombre
 
-              .row
-                %small
-                  -# Valoración
-                  - val = calcular_valoraciones ldi.id
+                .row
+                  %small
+                    -# Valoración
+                    - val = calcular_valoraciones ldi.id
 
-                  - if val != -1
-                    - val.times do
-                      %span.glyphicon.glyphicon-star
-                    - (5-val).times do
-                      %span.glyphicon.glyphicon-star-empty
-                  - else
-                    Sin valoraciones
+                    - if val != -1
+                      - val.times do
+                        %span.glyphicon.glyphicon-star
+                      - (5-val).times do
+                        %span.glyphicon.glyphicon-star-empty
+                    - else
+                      Sin valoraciones
 
-                  -# Comentarios
-                  = " | #{ldi.comentarios.count} mensajes"
+                    -# Comentarios
+                    = " | #{ldi.comentarios.count} mensajes"
 
-            .col-lg-2
-              -# Icono
-              - case ldi.categoria
-                - when  "bar_pub"
-                  %span.glyphicon.glyphicon-glass
-                - when  "restaurante"
-                  %span.glyphicon.glyphicon-cutlery
-                - when  "naturaleza"
-                  %span.glyphicon.glyphicon-tree-deciduous
-                - when  "cultural"
-                  %span.glyphicon.glyphicon-tower
-                - when  "alojamiento"
-                  %span.glyphicon.glyphicon-home
+              .col-lg-2
+                -# Icono
+                - case ldi.categoria
+                  - when  "bar_pub"
+                    %span.glyphicon.glyphicon-glass
+                  - when  "restaurante"
+                    %span.glyphicon.glyphicon-cutlery
+                  - when  "naturaleza"
+                    %span.glyphicon.glyphicon-tree-deciduous
+                  - when  "cultural"
+                    %span.glyphicon.glyphicon-tower
+                  - when  "alojamiento"
+                    %span.glyphicon.glyphicon-home
 
   .text-center
     = paginate @ldis

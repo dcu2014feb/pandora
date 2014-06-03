@@ -1,34 +1,35 @@
 .container-fluid
   /For each comment
-  - @comentarios.each do |com|
-    .row.media.well
+  .list-group
+    - @comentarios.each do |com|
+      .row.media.list-group-item
 
-      /Foto
-      .media-object.pull-left
-        - if com.usuario != nil
-          -# Fixme: Versionar tamaño imagen
-          = image_tag com.usuario.image, :class => "img_responsive", :size => "64"
-        - else
-          -# Fixme: Versionar tamaño imagen
-          = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "64"
-
-      /Nombre y fecha
-      .media-body
-        %strong.media-heading
+        /Foto
+        .media-object.pull-left
           - if com.usuario != nil
-            - if com.usuario == current_usuario
-              -# Fixme: Evitar hardcodear ruta
-              = link_to :action => "edit", :id_ldi => @ldi.id, :id_com => com.id do
-                %span.glyphicon.glyphicon-pencil
-            = com.usuario.nombre
+            -# Fixme: Versionar tamaño imagen
+            = image_tag com.usuario.image, :class => "img_responsive", :size => "64"
           - else
-            Anónimo
-        %small
-          = time_ago_in_words com.created_at
+            -# Fixme: Versionar tamaño imagen
+            = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "64"
 
-        /Texto
-        %p
-          = com.texto
+        /Nombre y fecha
+        .media-body
+          %strong.media-heading
+            - if com.usuario != nil
+              - if com.usuario == current_usuario
+                -# Fixme: Evitar hardcodear ruta
+                = link_to :action => "edit", :id_ldi => @ldi.id, :id_com => com.id do
+                  %span.glyphicon.glyphicon-pencil
+              = com.usuario.nombre
+            - else
+              Anónimo
+          %small
+            = time_ago_in_words com.created_at
+
+          /Texto
+          %p
+            = com.texto
 
   .pagination.center-block.text-center
     = paginate @comentarios

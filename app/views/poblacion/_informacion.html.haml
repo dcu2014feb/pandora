@@ -1,0 +1,8 @@
+.container-fluid
+  .row
+    %h2.text-center
+      = @poblacion.nombre
+  .row
+    = image_tag @poblacion.image, :class => "img-responsive", :size => "300"
+  .row
+    = image_tag 'agua_map.jpg', :class => "img-responsive"

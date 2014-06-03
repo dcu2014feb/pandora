@@ -1,69 +1,10 @@
-/Begin page content
 .container
-  .row
-    .col-lg-4
-      .row
-        -#.col-lg-3
-        .col-lg-12
-          %h2.text-center
-            = @poblacion.nombre
-        -#.col-lg-3
-      .row
-        = image_tag @poblacion.image, :class => "img-responsive", :size => "300"
-      .row
-        = image_tag 'agua_map.jpg', :class => "img-responsive"
-    .col-lg-1
-    .col-lg-7
-      .row.well
-        %p
-          = @poblacion.descripcion
-      .row
-        %strong.lead
-          LUGARES DE INTERÉS
-      %div{:class => "row", :align => "right"}
-
-      /For each location
-      - @poblacion.ldis.each do |l|
-
-        .row.media.well.well-sm
-          .media-object.pull-left
-            -# Foto
-            =image_tag l.image, :size => "80"
-
-          .media-body
-            .media-heading
-              %h3
-                .col-lg-10
-                  .row
-                    -# Título
-                    = link_to :controller => "comentario", :action => "new", :id_ldi => l.id do
-                      = l.nombre
-
-                  .row
-                    %small
-                      -# Valoración
-                      - val = calcular_valoraciones l.id
-
-                      - if val != -1
-                        - val.times do
-                          %span.glyphicon.glyphicon-star
-                        - (5-val).times do
-                          %span.glyphicon.glyphicon-star-empty
-                      - else
-                        Sin valoraciones
-
-                      = " | "
-                      -# Comentarios
-                      = "#{l.comentarios.count} mensajes"
-                .col-lg-2
-                  -# Icono
-                  - if l.categoria == "bar_pub"
-                    %span.glyphicon.glyphicon-glass
-                  - elsif l.categoria == "restaurante"
-                    %span.glyphicon.glyphicon-cutlery
-                  - elsif l.categoria == "naturaleza"
-                    %span.glyphicon.glyphicon-tree-deciduous
-                  - elsif l.categoria == "cultural"
-                    %span.glyphicon.glyphicon-tower
-                  - elsif l.categoria == "alojamiento"
-                    %span.glyphicon.glyphicon-home
+  .col-lg-4
+    = render :partial => "informacion"
+  .col-lg-1
+  .col-lg-7
+    .row.well
+      %p
+        = @poblacion.descripcion
+    .row
+      = render :partial => "lista_ldis"

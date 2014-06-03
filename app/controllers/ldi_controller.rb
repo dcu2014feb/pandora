@@ -1,4 +1,7 @@
 class LdiController < ApplicationController
+  include ApplicationHelper
+  include LdiHelper
+
   before_action :ldi_params, :only => [:create, :update]
 
   def new
@@ -6,30 +9,17 @@ class LdiController < ApplicationController
   end
 
   def create
-    ldi = params[:ldi]
+    ldi = params[:ldi]                                # Obtener los parámetros del formulario
+    res = elasticsearch_poblacion(ldi[:poblacion])    # Buscar la población del formulario en ES
+    reemplazar_nombre_poblacion_por_modelo(ldi, res)
 
-    client = Elasticsearch::Client.new
-
-    res = client.search :index => "walko", :type => "poblacion", :body =>
-      {
-        :query => {
-          :match => {
-            :nombre => ldi[:poblacion]
-          }
-        }
-      }
-
-    if res["hits"]["total"] > 0
-      ldi[:poblacion] = Poblacion.where("nombre = ?", res["hits"]["hits"][0]["_source"]["nombre"]).first
-    else
-      ldi[:poblacion] = Poblacion.new
-    end
-
+    # Crear y guardar el modelo de ldi
     @ldi = Ldi.new(ldi)
     @ldi.usuario = current_usuario;
     @ldi.save!
 
-    redirect_to :controller => 'comentario', :action => 'new', :id_ldi => @ldi.id
+    # Fixme: Redirigir con ruta (no hardcodear)
+    redirect_to :controller => '/comentario', :action => 'new', :id_ldi => @ldi.id
   end
 
   def edit
@@ -37,41 +27,29 @@ class LdiController < ApplicationController
   end
 
   def update
-    client = Elasticsearch::Client.new
+    ldi = params[:ldi]                                    # Modelo nuevo obtenido del formulario
+    @ldi = Ldi.find(params[:id])                          # Modelo viejo obtenido de la BBDD
 
-    @ldi = Ldi.find(params[:id])
-    ldi = params[:ldi]
-
-    if @ldi.poblacion.nombre != ldi[:poblacion][:nombre]
-      res = client.search :index => "walko", :type => "poblacion", :body =>
-          {
-              :query => {
-                  :match => {
-                      :nombre => ldi[:poblacion][:nombre]
-                  }
-              }
-          }
-
-      if res["hits"]["total"] > 0
-        ldi[:poblacion] = Poblacion.where("nombre = ?", res["hits"]["hits"][0]["_source"]["nombre"]).first
-      else
-        ldi[:poblacion] = Poblacion.new
-      end
+    if @ldi.poblacion.nombre != ldi[:poblacion][:nombre]           # Si se ha modificado la población en el formulario
+      res = elasticsearch_poblacion(ldi[:poblacion][:nombre])      # Buscar la población del formulario en ES
+      reemplazar_nombre_poblacion_por_modelo(ldi, res)
     else
-      ldi[:poblacion] = @ldi.poblacion;
+      ldi[:poblacion] = @ldi.poblacion;                            # Reemplazar campos de población por el modelo entero
     end
 
-    @ldi.update!(ldi)
+    @ldi.update!(ldi)                                     # Actualizar ldi viejo con los nuevos parámetros
 
+    # Fixme: Redirigir con ruta (no hardcodear)
     redirect_to :controller => '/comentario', :action => 'new', :id_ldi => @ldi.id
   end
 
   def destroy
-    client = Elasticsearch::Client.new
-
+    # Eliminar ldi de la BBDD
     @ldi = Ldi.find(params[:id])
     @ldi.destroy!
 
+    # Eliminar ldi de ES
+    client = Elasticsearch::Client.new
     client.delete :index => "walko", :type => "ldi", :id => params[:id]
 
     redirect_to :root
@@ -80,6 +58,7 @@ class LdiController < ApplicationController
   private
 
   def ldi_params
+    #Fixme: Evitar pasar todos los parámetros
     params.require(:ldi).permit!
   end
 end

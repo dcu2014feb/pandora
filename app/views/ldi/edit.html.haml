@@ -1,52 +1,9 @@
 .container-fluid
   %h1.text-center
     = "Editar #{@ldi.nombre}"
-
   .col-lg-4
   .col-lg-4
-    = form_for @ldi, :url => "/ldi/edit/#{@ldi.id}", :class => "form" do |f|
-
-      .form-group
-        = f.label :nombre
-        = f.text_field :nombre, :autofocus => true, :class => "form-control"
-
-      .form-group
-        = f.label :categoria, "Categoría"
-        = f.select :categoria, [['Bares y Pubs','bar_pub'],['Restaurantes','restaurante'],['Alojamientos','alojamiento'],
-        ['Naturaleza','naturaleza'],['Cultural','cultural']],{}, {:class => "form-control"}
-
-      .form-group
-        = f.label :direccion, "Dirección"
-        = f.text_field :direccion, :autofocus => true, :class => "form-control"
-
-      .form-group
-        = f.label :cod_postal, "Código postal"
-        = f.text_field :cod_postal, :autofocus => true, :class => "form-control"
-
-      = f.fields_for @ldi.poblacion do |sub|
-        .form-group
-          = sub.label :nombre
-          = sub.text_field :nombre, :autofocus => false, :class => "form-control"
-
-      .form-group
-        = f.label :telefono
-        = f.text_field :telefono, :autofocus => false, :class => "form-control"
-
-      .form-group
-        = f.label :email
-        = f.email_field :email, :autofocus => true, :class => "form-control"
-
-      .form-group
-        = f.label :descripcion
-        = f.text_area :descripcion, :autofocus => false, :class => "form-control"
-
-      .form-group
-        = f.label :image, "Imagen"
-        = f.file_field :image, :class => "form-control"
-
-      .text-right
-        = f.submit "Registrar", :class => "btn btn-default"
-
+    = render :partial => "edit_form"
+    -# Fixme: Reemplazar rutas absolutas (evitar hardcodear)
     = button_to "Eliminar", {:controller => "/ldi", :action => "destroy", :id => @ldi.id}, :method => :delete
-
   .col-lg-4

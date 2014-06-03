@@ -1,18 +1,22 @@
 module LdiHelper
-  def calc_valoraciones id
-    tmpVal = 0
-    val = Valoracion.where("ldi_id = ?",id)
+  def elasticsearch_poblacion(poblacion)
+    client = Elasticsearch::Client.new
 
-    # Suma las valoraciones
-    val.each do |v|
-      tmpVal += v[:puntuacion]
-    end
+    client.search :index => "walko", :type => "poblacion", :body =>
+        {
+            :query => {
+                :match => {
+                    :nombre => poblacion
+                }
+            }
+        }
+  end
 
-    # Halla la media de las valoraciones si existen, -1 si no
-    if val.length != 0
-      tmpVal = tmpVal / val.length
+  def reemplazar_nombre_poblacion_por_modelo(ldi, res)
+    if res["hits"]["total"] > 0
+      ldi[:poblacion] = Poblacion.where("nombre = ?", res["hits"]["hits"][0]["_source"]["nombre"]).first
     else
-      -1
+      ldi[:poblacion] = Poblacion.new
     end
   end
 end

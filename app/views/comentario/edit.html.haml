@@ -1,101 +1,21 @@
-/Begin page content
 .container
-  .row
-    .col-lg-4
-      .row
-        .col-lg-12
-          %h2.text-center
-            = @ldi.nombre
-            - if usuario_signed_in? && current_usuario == @ldi.usuario
-              = link_to :controller => "ldi", :action => "edit", :id => @ldi.id do
-                %span.glyphicon.glyphicon-pencil
-      .row
-        = image_tag @ldi.image, :class => "img-responsive", :size => "300"
-      .row
-        = image_tag 'agua_map.jpg', :class => "img-responsive"
-      .row
-        %dl.dl-horizontal
-          %dt
-            Ciudad
-            %dd
-              = @ldi.poblacion.nombre
-          %dt
-            Categoria
-            %dd
-              - if @ldi.categoria == "bar_pub"
-                %span.glyphicon.glyphicon-glass
-                Bar/Pub
-              - elsif @ldi.categoria == "restaurante"
-                %span.glyphicon.glyphicon-cutlery
-                Restaurante
-              - elsif @ldi.categoria == "naturaleza"
-                %span.glyphicon.glyphicon-tree-deciduous
-                Naturaleza
-              - elsif @ldi.categoria == "cultural"
-                %span.glyphicon.glyphicon-tower
-                Cultural
-              - elsif @ldi.categoria == "alojamiento"
-                %span.glyphicon.glyphicon-home
-                Alojamiento
-          %dt
-            Valoración
-            %dd
-              - val = calcular_valoraciones @ldi.id
-
-              - if val == -1
-                Sin valoraciones
-              - else
-                - val.times do
-                  %span.glyphicon.glyphicon-star
-                - (5-val).times do
-                  %span.glyphicon.glyphicon-star-empty
-          - if (@ldi.telefono != nil && !@ldi.telefono.empty?)
-            %dt
-              Teléfono
-            %dd
-              = @ldi.telefono
-          - if (@ldi.email != nil && !@ldi.email.empty?)
-            %dt
-              Email
-            %dd
-              = @ldi.email
-    .col-lg-1
-    .col-lg-7
-      .row.well
-        %p
-          = @ldi.descripcion
-      .row
-        %strong.lead
-          COMENTARIOS
-      %div{:class => "row", :align => "right"}
-        =form_tag :controller => "comentario", :action => "update", :id_com => @comentario.id, :id_ldi => @ldi.id do
-          = text_area_tag "texto", @comentario.texto, :class => "form-control"
-          = submit_tag "Actualizar", :class => "btn btn-default"
-        = button_to "Eliminar", {:controller => "comentario", :action => "destroy", :id_com => @comentario.id,
-        :id_ldi => @ldi.id}, :method => "delete"
-
-      /For each comment
-      - @ldi.comentarios.each do |com|
-        .row.media.well
-
-          /Foto
-          .media-object.pull-left
-            - if com.usuario != nil
-              = image_tag com.usuario.image, :class => "img_responsive", :size => "64"
-            - else
-              = image_tag 'usuario_anon.png', :class => "img_responsive", :size => "64"
-
-          /Nombre
-          .media-body
-            %strong.media-heading
-              - if com.usuario != nil
-                = com.usuario.nombre
-                - if com.usuario == current_usuario
-                  = link_to :action => "edit", :id_ldi => @ldi.id, :id_com => com.id do
-                    %span.glyphicon.glyphicon-pencil
-              - else
-                Anónimo
-
-            /Texto
-            %p
-              = com.texto
+  .col-lg-4
+    = render :partial => "informacion_ldi"
+  .col-lg-1
+  .col-lg-7
+    .row.well
+      %p
+        = @ldi.descripcion
+    .row
+      %strong.lead
+        COMENTARIOS
+    .row
+      -# Nuevo comentario
+      -# Fixme: Evitar hardcodear ruta
+      = form_tag :controller => "comentario", :action => "update", :id_com => @comentario.id, :id_ldi => @ldi.id do
+        = text_area_tag "texto", @comentario.texto, :class => "form-control"
+        = submit_tag "Actualizar", :class => "btn btn-default"
+      = button_to "Eliminar", {:controller => "comentario", :action => "destroy", :id_com => @comentario.id,
+      :id_ldi => @ldi.id}, :method => "delete"
+    .row
+      = render :partial => "lista_comentarios"

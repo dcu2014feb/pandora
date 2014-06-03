@@ -1,5 +1,5 @@
 class ComentarioController < ApplicationController
-  #before_action :comentario_params, :only => :update
+  before_action :encontrar_comentario, :only => [:edit, :update, :destroy]
 
   def new
     @ldi = Ldi.find(params[:id_ldi])
@@ -7,7 +7,7 @@ class ComentarioController < ApplicationController
 
   def create
     @comentario = Comentario.new
-    @comentario.texto = params[:comentario]
+    @comentario.texto = params[:texto]
     @comentario.ldi = Ldi.find(params[:id_ldi])
 
     if usuario_signed_in?
@@ -15,16 +15,14 @@ class ComentarioController < ApplicationController
     end
     @comentario.save!
 
-    redirect_to :back
+    redirect_to :controller => "/comentario", :action => "new", :id_ldi => params[:id_ldi]
   end
 
   def edit
-    @comentario = Comentario.find(params[:id_com])
     @ldi = Ldi.find(params[:id_ldi])
   end
 
   def update
-    @comentario = Comentario.find(params[:id_com])
     @comentario.texto = params[:texto]
     @comentario.save!
 
@@ -32,7 +30,6 @@ class ComentarioController < ApplicationController
   end
 
   def destroy
-    @comentario = Comentario.find(params[:id_com])
     @comentario.destroy!
 
     redirect_to :controller => "/comentario", :action => "new", :id_ldi => params[:id_ldi]
@@ -40,7 +37,7 @@ class ComentarioController < ApplicationController
 
   private
 
-  def comentario_params
-    params.require(:comentario).permit!
+  def encontrar_comentario
+    @comentario = Comentario.find(params[:id_com])
   end
 end

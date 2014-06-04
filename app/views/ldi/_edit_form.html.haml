@@ -1,5 +1,5 @@
 -# Fixme: Evitar hardcodear esta url vvv
-= form_for @ldi, :url => "/ldi/edit/#{@ldi.id}", :class => "form" do |f|
+= form_for @ldi, :url => {:action => "update"}, :class => "form" do |f|
   .form-group
     = f.label :nombre
     = f.text_field :nombre, :autofocus => true, :class => "form-control"
@@ -17,10 +17,10 @@
     = f.label :cod_postal, "Código postal"
     = f.text_field :cod_postal, :autofocus => true, :class => "form-control"
 
-  = f.fields_for @ldi.poblacion do |p|
+  = fields_for :poblacion, @ldi.poblacion do |pob|
     .form-group
-      = p.label :nombre
-      = p.text_field :nombre, :autofocus => false, :class => "form-control"
+      = pob.label :nombre, "Nombre de población"
+      = pob.text_field :nombre, :autofocus => false, :class => "form-control"
 
   .form-group
     = f.label :telefono

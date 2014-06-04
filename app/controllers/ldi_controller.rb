@@ -9,20 +9,24 @@ class LdiController < ApplicationController
 
   def new
     @ldi = Ldi.new
+    @ldi.poblacion = Poblacion.new
   end
 
   def create
     ldi = params[:ldi]                                # Obtener los parámetros del formulario
-    res = elasticsearch_poblacion(ldi[:poblacion])    # Buscar la población del formulario en ES
+    res = elasticsearch_poblacion(params[:poblacion][:nombre])    # Buscar la población del formulario en ES
     reemplazar_nombre_poblacion_por_modelo(ldi, res)
 
     # Crear y guardar el modelo de ldi
     @ldi = Ldi.new(ldi)
-    @ldi.usuario = current_usuario;
-    @ldi.save!
+    @ldi.usuario = current_usuario
 
-    # Fixme: Redirigir con ruta (no hardcodear)
-    redirect_to :controller => '/comentario', :action => 'new', :id_ldi => @ldi.id
+    if @ldi.save
+      # Fixme: Redirigir con ruta (no hardcodear)
+      redirect_to :controller => '/comentario', :action => 'new', :id_ldi => @ldi.id
+    else
+      render "/ldi/new"
+    end
   end
 
   def edit
@@ -31,17 +35,19 @@ class LdiController < ApplicationController
   def update
     ldi = params[:ldi]                                    # Modelo nuevo obtenido del formulario
 
-    if @ldi.poblacion.nombre != ldi[:poblacion][:nombre]           # Si se ha modificado la población en el formulario
-      res = elasticsearch_poblacion(ldi[:poblacion][:nombre])      # Buscar la población del formulario en ES
+    if @ldi.poblacion.nombre != params[:poblacion][:nombre]           # Si se ha modificado la población en el formulario
+      res = elasticsearch_poblacion(params[:poblacion][:nombre])      # Buscar la población del formulario en ES
       reemplazar_nombre_poblacion_por_modelo(ldi, res)
     else
       ldi[:poblacion] = @ldi.poblacion;                            # Reemplazar campos de población por el modelo entero
     end
 
-    @ldi.update!(ldi)                                     # Actualizar ldi viejo con los nuevos parámetros
-
-    # Fixme: Redirigir con ruta (no hardcodear)
-    redirect_to :controller => '/comentario', :action => 'new', :id_ldi => @ldi.id
+    if @ldi.update(ldi)                                           # Actualizar ldi viejo con los nuevos parámetros
+      # Fixme: Redirigir con ruta (no hardcodear)
+      redirect_to :controller => '/comentario', :action => 'new', :id_ldi => @ldi.id
+    else
+      render :controller => "/ldi", :action => "edit", :id_ldi => @ldi.id
+    end
   end
 
   def destroy

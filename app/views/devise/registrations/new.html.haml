@@ -5,7 +5,19 @@
   .col-lg-4
   .col-lg-4
     = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :class => "form") do |f|
-      = devise_error_messages!
+
+      - if (resource.errors.any?)
+        .panel.form-group.panel-danger
+          .text-danger.panel-heading
+            %h3.panel-title
+              = "Hay " + pluralize(resource.errors.count, "error", "errores")
+          .panel-body
+            %ul
+              - resource.errors.full_messages.each do |msg|
+                %li.text-danger
+                  %strong
+                    = msg.split(' ')[0]
+                  = msg.split(' ')[1..-1].join(' ')
 
       .form-group
         = f.label :nombre

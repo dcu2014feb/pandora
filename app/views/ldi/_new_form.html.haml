@@ -1,4 +1,18 @@
 = form_for @ldi, :url => {:action => "create"}, :class => "form" do |f|
+
+  - if (@ldi.errors.any?)
+    .panel.form-group.panel-danger
+      .text-danger.panel-heading
+        %h3.panel-title
+          = "Hay " + pluralize(@ldi.errors.count, "error", "errores")
+      .panel-body
+        %ul
+          - @ldi.errors.full_messages.each do |msg|
+            %li.text-danger
+              %strong
+                = msg.split(' ')[0]
+              = msg.split(' ')[1..-1].join(' ')
+
   .form-group
     = f.label :nombre
     = f.text_field :nombre, :autofocus => true, :class => "form-control"

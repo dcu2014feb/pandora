@@ -12,11 +12,24 @@
     .row
       -# Nuevo comentario
       -# Fixme: Evitar hardcodear ruta
-      = form_tag :controller => "comentario", :action => "create", :class => "form" do
+      = form_for @comentario, :url => {:controller => "comentario", :action => "create"}, :class => "form" do |f|
+        - if (@comentario.errors.any?)
+          .panel.form-group.panel-danger
+            .text-danger.panel-heading
+              %h3.panel-title
+                = "Hay " + pluralize(@comentario.errors.count, "error", "errores")
+            .panel-body
+              %ul
+                - @comentario.errors.full_messages.each do |msg|
+                  %li.text-danger
+                    %strong
+                      = msg.split(' ')[0]
+                    = msg.split(' ')[1..-1].join(' ')
+
         -# Fixme: Escriba el comentario.... -> Como PLACEHOLDER
         .form-group
-          = text_area_tag "texto", "Escriba el comentario…", :class => "form-control"
+          = f.text_area :texto, :class => "form-control"
         .form-group.text-right
-          = submit_tag "Enviar", :class => "btn btn-default"
+          = f.submit "Enviar", :class => "btn btn-default"
     .row
       = render :partial => "lista_comentarios"

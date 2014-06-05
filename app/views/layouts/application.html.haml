@@ -10,8 +10,9 @@
     =csrf_meta_tags
 
   %body
-    =render :partial => "layouts/header" unless (current_page?(root_url) || current_page?(:busqueda_new))
+    - if (current_page?(root_url) || current_page?(:busqueda_new))
+      =render :partial => "layouts/header_inicio"
+    - else
+      =render :partial => "layouts/header"
 
     =yield
-
-    =render :partial => "layouts/footer"

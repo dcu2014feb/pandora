@@ -1,4 +1,5 @@
 class ComentarioController < ApplicationController
+  before_action :params_comentario, :only => [:create, :update]
   before_action :encontrar_comentario, :only => [:edit, :update, :destroy]
   before_action :authenticate_usuario!, :only => [:edit, :update, :destroy]
   before_action :verify_usuario, :only => [:edit, :update, :destroy]
@@ -6,19 +7,25 @@ class ComentarioController < ApplicationController
   def new
     @ldi = Ldi.find(params[:id_ldi])
     @comentarios = @ldi.comentarios.page(params[:page]).per(5)
+    @comentario = Comentario.new
   end
 
   def create
-    @comentario = Comentario.new
-    @comentario.texto = params[:texto]
-    @comentario.ldi = Ldi.find(params[:id_ldi])
+    @ldi = Ldi.find(params[:id_ldi])
+    @comentario = Comentario.new(params[:comentario])
+    @comentario.ldi = @ldi
 
     if usuario_signed_in?
       @comentario.usuario = current_usuario
     end
-    @comentario.save!
 
-    redirect_to :controller => "/comentario", :action => "new", :id_ldi => params[:id_ldi]
+    if @comentario.save
+      redirect_to :controller => "/comentario", :action => "new", :id_ldi => params[:id_ldi]
+    else
+      @ldi = Ldi.find(params[:id_ldi])
+      @comentarios = @ldi.comentarios.page(params[:page]).per(5)
+      render :controller => "/comentario", :action => "new"
+    end
   end
 
   def edit
@@ -27,10 +34,13 @@ class ComentarioController < ApplicationController
   end
 
   def update
-    @comentario.texto = params[:texto]
-    @comentario.save!
-
-    redirect_to :controller => "/comentario", :action => "new", :id_ldi => params[:id_ldi]
+    if @comentario.update params[:comentario]
+      redirect_to :controller => "/comentario", :action => "new", :id_ldi => params[:id_ldi]
+    else
+      @ldi = Ldi.find(params[:id_ldi])
+      @comentarios = @ldi.comentarios.page(params[:page]).per(5)
+      render :controller => "/comentario", :action => "edit"
+    end
   end
 
   def destroy
@@ -40,6 +50,10 @@ class ComentarioController < ApplicationController
   end
 
   private
+
+  def params_comentario
+    params.require(:comentario).permit!
+  end
 
   def encontrar_comentario
     @comentario = Comentario.find(params[:id_com])

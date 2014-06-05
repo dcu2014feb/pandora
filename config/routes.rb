@@ -6,7 +6,7 @@ Walko::Application.routes.draw do
   get "ldi/:id_ldi/comentario" => "comentario#new"
   post "ldi/:id_ldi/comentario" => "comentario#create"
   get "ldi/:id_ldi/comentario/edit/:id_com" => "comentario#edit"
-  post "ldi/:id_ldi/comentario/edit/:id_com" => "comentario#update"
+  patch "ldi/:id_ldi/comentario/edit/:id_com" => "comentario#update"
   delete "ldi/:id_ldi/comentario/delete/:id_com" => "comentario#destroy"
 
   get "ldi/new" => "ldi#new"

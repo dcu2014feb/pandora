@@ -2,7 +2,7 @@ module LdiHelper
   def elasticsearch_poblacion(poblacion)
     client = Elasticsearch::Client.new
 
-    client.search :index => "walko", :type => "poblacion", :body =>
+    client.search :index => ENV['dbname'], :type => "poblacion", :body =>
         {
             :query => {
                 :match => {

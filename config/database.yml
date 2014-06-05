@@ -6,9 +6,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: walko
-  username: walko
-  password:
+  database: <%= ENV['dbname'] %>
+  username: <%= ENV['dbuser'] %>
+  password: <%= ENV['dbpass'] %>
   pool: 5
   timeout: 5000
 
@@ -21,8 +21,11 @@ development:
 #   pool: 5
 #   timeout: 5000
 
-# production:
-#   adapter: sqlite3
-#   database: db/production.sqlite3
-#   pool: 5
-#   timeout: 5000
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['dbname'] %>
+  username: <%= ENV['dbuser'] %>
+  password: <%= ENV['dbpass'] %>
+  pool: 5
+  timeout: 5000

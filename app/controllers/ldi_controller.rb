@@ -56,7 +56,7 @@ class LdiController < ApplicationController
 
     # Eliminar ldi de ES
     client = Elasticsearch::Client.new
-    client.delete :index => "walko", :type => "ldi", :id => params[:id]
+    client.delete :index => ENV['dbname'], :type => "ldi", :id => params[:id]
 
     redirect_to :root
   end

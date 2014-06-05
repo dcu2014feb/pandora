@@ -1,7 +1,7 @@
 module BusquedaHelper
   def elasticsearch_todo(busqueda)
     client = Elasticsearch::Client.new
-    client.search :index => "walko", :body =>
+    client.search :index => ENV['dbname'], :body =>
         {
             :query => {
                 :multi_match => {

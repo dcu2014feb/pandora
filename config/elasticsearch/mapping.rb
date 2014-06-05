@@ -2,7 +2,7 @@ require 'elasticsearch'
 
 client = Elasticsearch::Client.new
 
-client.indices.create :index => "walko", :body =>
+client.indices.create :index => ENV['dbname'], :body =>
   {
     :mappings => {
       :ldi => {

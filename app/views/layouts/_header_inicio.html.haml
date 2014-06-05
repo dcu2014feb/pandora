@@ -1,0 +1,42 @@
+%nav{:class => "navbar navbar-default", :id => "nav_inicio", :role =>"navigation"}
+  .container-fluid
+    /Brand and toggle get grouped for better mobile display
+    .col-lg-2.col-xs-1
+    .col-lg-2.navbar-header
+      %button{:class => "navbar-toggle", "data-toggle" => "collapse", "data-target" => "#navbar-collapse"}
+        %span.sr-only
+          Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+
+    /Collect the nav links, forms, and other content for toggling
+    .collapse.navbar-collapse.navbar-right#navbar-collapse
+      %ul.nav.navbar-nav
+        - if usuario_signed_in?
+          %li.text-center
+            = link_to :controller => "/ldi", :action => "new" do
+              Recomendar lugar
+          %li.text-center
+            = link_to "#" do
+              Mis lugares recomendados
+          %li.text-center
+            = link_to "#" do
+              Mis lugares valorados
+          %li.text-center
+            = link_to "#" do
+              Mis comentarios
+          %li.divider.nav-divider
+          %li.active.text-center
+            = link_to :edit_usuario_registration do
+              = current_usuario.nombre.upcase
+          %li.text-center
+            = link_to :destroy_usuario_session, :method => 'DELETE' do
+              Salir
+        - else
+          %li.active.text-center
+            = link_to :new_usuario_session do
+              Entrar
+          %li.text-center
+            = link_to :new_usuario_registration do
+              Registrar

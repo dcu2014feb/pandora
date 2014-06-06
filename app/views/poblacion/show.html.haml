@@ -9,8 +9,8 @@
     .col-lg-1
     .col-lg-7
       - if @poblacion.descripcion != nil && !@poblacion.descripcion.empty?
-        .row.well
-          %p
+        .row
+          %blockquote
             = @poblacion.descripcion
       .row
         = render :partial => "lista_ldis"

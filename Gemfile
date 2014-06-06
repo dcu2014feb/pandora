@@ -48,6 +48,9 @@ gem 'carrierwave'
 # Pagination
 gem 'kaminari'
 
+# Google Places
+gem 'google_places'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

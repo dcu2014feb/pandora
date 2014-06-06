@@ -6,7 +6,19 @@
 
   /Mapa
   .row.form-group
-    = image_tag 'agua_map.jpg', :class => "img-responsive img-thumbnail center-block"
+
+    %div{:id => "map", :style => 'width: 800px; height: 400px;', :class => "img-responsive"}
+
+      :javascript
+        $( document).ready(function() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-34.397, 150.644),
+                zoom: 12,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"),
+                mapOptions);
+        });
 
   /Información
   .row

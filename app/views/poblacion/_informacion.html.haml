@@ -3,4 +3,20 @@
     -# Fixme: Versionar imagen
     = image_tag @poblacion.image, :class => "img-responsive img-thumbnail center-block"
   .row.form-group
-    = image_tag 'agua_map.jpg', :class => "img-responsive img-thumbnail center-block"
+
+    %div{:id => "map", :style => 'width: 800px; height: 400px;', :class => "img-responsive"}
+
+      :javascript
+        $( document).ready(function() {
+            var mapOptions = {
+                center: new google.maps.LatLng("#{@poblacion.lat}", "#{@poblacion.long}"),
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"),
+                mapOptions);
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng("#{@poblacion.lat}", "#{@poblacion.long}"),
+              map: map
+            });
+        });

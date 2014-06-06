@@ -9,15 +9,24 @@
 
     %div{:id => "map", :style => 'width: 800px; height: 400px;', :class => "img-responsive"}
 
+      - if @ldi.lat != nil && @ldi.long !=nil   # Si ldi posee coordenadas propias
+        - zoom = 15
+      - else
+        - zoom = 10
+
       :javascript
         $( document).ready(function() {
             var mapOptions = {
-                center: new google.maps.LatLng(-34.397, 150.644),
-                zoom: 12,
+                center: new google.maps.LatLng("#{@ldi.lat || @ldi.poblacion.lat}", "#{@ldi.long || @ldi.poblacion.long}"),
+                zoom: #{zoom},
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("map"),
                 mapOptions);
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng("#{@ldi.lat || @ldi.poblacion.lat}", "#{@ldi.long || @ldi.poblacion.long}"),
+              map: map
+            });
         });
 
   /Información
@@ -58,6 +67,16 @@
               %span.glyphicon.glyphicon-star
             - (5-val).times do
               %span.glyphicon.glyphicon-star-empty
+      - if (@ldi.direccion != nil && !@ldi.direccion.empty?)
+        %dt
+          Dirección
+          %dd
+            = @ldi.direccion
+      - if (@ldi.cod_postal != nil && !@ldi.cod_postal.empty?)
+        %dt
+          Código postal
+          %dd
+            = @ldi.cod_postal
       - if (@ldi.telefono != nil && !@ldi.telefono.empty?)
         %dt
           Teléfono

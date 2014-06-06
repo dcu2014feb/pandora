@@ -1,10 +1,16 @@
 .container
-  .col-lg-4
-    = render :partial => "informacion"
-  .col-lg-1
-  .col-lg-7
-    .row.well
-      %p
-        = @poblacion.descripcion
-    .row
-      = render :partial => "lista_ldis"
+  .row
+    .col-lg-4
+      %h1.text-center
+        = @poblacion.nombre
+  .row
+    .col-lg-4
+      = render :partial => "informacion"
+    .col-lg-1
+    .col-lg-7
+      - if @poblacion.descripcion != nil && !@poblacion.descripcion.empty?
+        .row
+          %blockquote
+            = @poblacion.descripcion
+      .row
+        = render :partial => "lista_ldis"

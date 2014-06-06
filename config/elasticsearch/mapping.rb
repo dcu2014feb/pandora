@@ -9,7 +9,8 @@ client.indices.create :index => ENV['dbname'], :body =>
         :properties => {
           :nombre => {
             :type => "string",
-            :analyzer => "spanish"
+            :analyzer => "spanish",
+            :boost => 5.0
           },
           :categoria => {
             :type => "string",
@@ -25,7 +26,8 @@ client.indices.create :index => ENV['dbname'], :body =>
         :properties => {
           :nombre => {
             :type => "string",
-            :analyzer => "spanish"
+            :analyzer => "spanish",
+            :boost => 3.0
           },
           :descripcion => {
             :type => "string",

@@ -29,7 +29,7 @@
 
         = form_for @comentario, :url => {:controller => "comentario", :action => "update"}, :class => "form" do |f|
           .form-group
-            = f.text_area :texto, :class => "form-control"
+            = f.text_area :texto, :class => "form-control", :placeholder => "Escribe tu comentario..."
           .form-group
             = f.submit "Actualizar", :class => "btn btn-default pull-right"
         = button_to "Eliminar", {:controller => "comentario", :action => "destroy", :id_com => @comentario.id,

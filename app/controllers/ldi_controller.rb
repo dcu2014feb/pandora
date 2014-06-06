@@ -17,6 +17,8 @@ class LdiController < ApplicationController
     res = elasticsearch_poblacion(params[:poblacion][:nombre])    # Buscar la población del formulario en ES
     reemplazar_nombre_poblacion_por_modelo(ldi, res)
 
+    agregar_geolocalizacion(ldi)
+
     # Crear y guardar el modelo de ldi
     @ldi = Ldi.new(ldi)
     @ldi.usuario = current_usuario
@@ -41,6 +43,8 @@ class LdiController < ApplicationController
     else
       ldi[:poblacion] = @ldi.poblacion;                            # Reemplazar campos de población por el modelo entero
     end
+
+    agregar_geolocalizacion(ldi)
 
     if @ldi.update(ldi)                                           # Actualizar ldi viejo con los nuevos parámetros
       # Fixme: Redirigir con ruta (no hardcodear)

@@ -1,35 +1,45 @@
 .container
-  .col-lg-4
-    = render :partial => "informacion_ldi"
-  .col-lg-1
-  .col-lg-7
-    .row.well
-      %p
-        = @ldi.descripcion
-    .row
-      %strong.lead
-        COMENTARIOS
-    .row
-      -# Nuevo comentario
-      -# Fixme: Evitar hardcodear ruta
-      = form_for @comentario, :url => {:controller => "comentario", :action => "create"}, :class => "form" do |f|
-        - if (@comentario.errors.any?)
-          .panel.form-group.panel-danger
-            .text-danger.panel-heading
-              %h3.panel-title
-                = "Hay " + pluralize(@comentario.errors.count, "error", "errores")
-            .panel-body
-              %ul
-                - @comentario.errors.full_messages.each do |msg|
-                  %li.text-danger
-                    %strong
-                      = msg.split(' ')[0]
-                    = msg.split(' ')[1..-1].join(' ')
+  .row
+    .col-lg-4
+      /Titulo
+      %h1.text-center
+        - if usuario_signed_in? && current_usuario == @ldi.usuario
+          -# Fixme: Evitar hardcodear ruta
+          = link_to :controller => "ldi", :action => "edit", :id => @ldi.id do
+            %span.glyphicon.glyphicon-pencil
+        = @ldi.nombre
+  .row
+    .col-lg-4
+      = render :partial => "informacion_ldi"
+    .col-lg-1
+    .col-lg-7
+      .row.well
+        %p
+          = @ldi.descripcion
+      .row
+        %strong.lead
+          COMENTARIOS
+      .row
+        -# Nuevo comentario
+        -# Fixme: Evitar hardcodear ruta
+        = form_for @comentario, :url => {:controller => "comentario", :action => "create"}, :class => "form" do |f|
+          - if (@comentario.errors.any?)
+            .panel.form-group.panel-danger
+              .text-danger.panel-heading
+                %h3.panel-title
+                  = "Hay " + pluralize(@comentario.errors.count, "error", "errores")
+              .panel-body
+                %ul
+                  - @comentario.errors.full_messages.each do |msg|
+                    %li.text-danger
+                      %strong
+                        = msg.split(' ')[0]
+                      = msg.split(' ')[1..-1].join(' ')
 
-        -# Fixme: Escriba el comentario.... -> Como PLACEHOLDER
-        .form-group
-          = f.text_area :texto, :class => "form-control", :placeholder => "Escribe tu comentario..."
-        .form-group.text-right
-          = f.submit "Enviar", :class => "btn btn-default"
-    .row
-      = render :partial => "lista_comentarios"
+          -# Fixme: Escriba el comentario.... -> Como PLACEHOLDER
+          .form-group
+            = f.text_area :texto, :class => "form-control", :placeholder => "Escribe tu comentario..."
+          .form-group.text-right
+            = f.submit "Enviar", :class => "btn btn-default"
+      .row
+        = render :partial => "lista_comentarios"

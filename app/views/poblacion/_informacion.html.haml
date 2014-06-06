@@ -1,9 +1,6 @@
 .container-fluid
-  .row
-    %h2.text-center
-      = @poblacion.nombre
-  .row
+  .row.form-group
     -# Fixme: Versionar imagen
-    = image_tag @poblacion.image, :class => "img-responsive img-thumbnail center-block", :size => "300"
-  .row
+    = image_tag @poblacion.image, :class => "img-responsive img-thumbnail center-block"
+  .row.form-group
     = image_tag 'agua_map.jpg', :class => "img-responsive img-thumbnail center-block"

@@ -1,20 +1,11 @@
 .container-fluid
-  /Titulo
-  .row
-    %h2.text-center
-      - if usuario_signed_in? && current_usuario == @ldi.usuario
-        -# Fixme: Evitar hardcodear ruta
-        = link_to :controller => "ldi", :action => "edit", :id => @ldi.id do
-          %span.glyphicon.glyphicon-pencil
-      = @ldi.nombre
-
   /Imagen
-  .row
+  .row.form-group
     -# Fixme: Versionar tamaño imagen
-    = image_tag @ldi.image, :class => "img-responsive img-thumbnail center-block", :size => "300"
+    = image_tag @ldi.image, :class => "img-responsive img-thumbnail center-block"
 
   /Mapa
-  .row
+  .row.form-group
     = image_tag 'agua_map.jpg', :class => "img-responsive img-thumbnail center-block"
 
   /Información

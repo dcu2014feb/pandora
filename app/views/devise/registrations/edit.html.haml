@@ -22,6 +22,8 @@
 
       .form-group
         = f.label :nombre
+        %span.label.label-warning
+          necesario
         = f.text_field :nombre, :autofocus => true, :class => "form-control"
 
       .form-group
@@ -30,13 +32,15 @@
 
       .form-group
         = f.label :email
+        %span.label.label-warning
+          necesario
         = f.email_field :email, :autofocus => true, :class => "form-control"
 
       .form-group
         = f.label :password, "Contraseña nueva"
-        %i
-          (Déjalo en blanco si no quieres cambiarla)
         = f.password_field :password, :class => "form-control"
+        %small.help-block
+          Déjalo en blanco si no quieres cambiarla.
 
       .form-group
         = f.label :password_confirmation, "Contraseña nueva (confirmación)"
@@ -44,19 +48,19 @@
 
       .form-group
         = f.label :current_password, "Contraseña actual"
-        %i
-          (Es necesaria tu contraseña actual para modificar los cambios)
+        %span.label.label-warning
+          necesario
         = f.password_field :current_password, :class => "form-control"
+        %small.help-block
+          Es necesaria tu contraseña actual para modificar los cambios.
 
       .form-group
-        .form-group
-          = f.label :image, "Imagen"
-          %i
-            (La imagen será subida después de actualizar el perfil)
-        .form-group
-          = image_tag resource.image, :class => "responsive-image img-thumbnail center-block"
+        = f.label :image, "Imagen"
+        = image_tag resource.image, :class => "responsive-image img-thumbnail center-block"
         .form-group
           = f.file_field :image, :class => "form-control"
+          %small.help-block
+            La imagen será subida después de actualizar el perfil.
 
       .text-right
         = f.submit "Actualizar", :class => "btn btn-default"

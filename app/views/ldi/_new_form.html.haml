@@ -1,5 +1,4 @@
 = form_for @ldi, :url => {:action => "create"}, :class => "form" do |f|
-
   - if (@ldi.errors.any?)
     .panel.form-group.panel-danger
       .text-danger.panel-heading
@@ -15,6 +14,8 @@
 
   .form-group
     = f.label :nombre
+    %span.label.label-warning
+      necesario
     = f.text_field :nombre, :autofocus => true, :class => "form-control"
 
   .form-group
@@ -25,14 +26,20 @@
   .form-group
     = f.label :direccion, "Dirección"
     = f.text_field :direccion, :autofocus => true, :class => "form-control"
+    %small.help-block
+      Si se deja en blanco, se intentará rellenar con datos de Google Places.
 
   .form-group
     = f.label :cod_postal, "Código postal"
     = f.text_field :cod_postal, :autofocus => true, :class => "form-control"
+    %small.help-block
+      Si se deja en blanco, se intentará rellenar con datos de Google Places.
 
   = fields_for :poblacion, @ldi.poblacion do |pob|
     .form-group
       = pob.label :nombre, "Nombre de población"
+      %span.label.label-warning
+        necesario
       = pob.text_field :nombre, :autofocus => false, :class => "form-control"
 
   .form-group
@@ -45,11 +52,15 @@
 
   .form-group
     = f.label :descripcion
+    %span.label.label-warning
+      necesario
     = f.text_area :descripcion, :autofocus => false, :class => "form-control"
 
   .form-group
     = f.label :image, "Imagen"
     = f.file_field :image, :class => "form-control"
+    %small.help-block
+      Si se deja en blanco, se intentará rellenar con datos de Google Places.
 
   .form-group.text-right
     = f.submit "Registrar", :class => "btn btn-default"

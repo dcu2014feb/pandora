@@ -18,7 +18,7 @@
           = @ldi.descripcion
       .row
         %strong.lead
-          COMENTARIOS
+          Danos tu opinión
       .row
         -# Nuevo comentario
         -# Fixme: Evitar hardcodear ruta
@@ -36,10 +36,16 @@
                         = msg.split(' ')[0]
                       = msg.split(' ')[1..-1].join(' ')
 
-          -# Fixme: Escriba el comentario.... -> Como PLACEHOLDER
           .form-group
             = f.text_area :texto, :class => "form-control", :placeholder => "Escribe tu comentario..."
-          .form-group.text-right
+          .form-group.text-right.pull-right
             = f.submit "Enviar", :class => "btn btn-default"
+
+        .pull-left
+          .glyphicon.glyphicon-star
+          .glyphicon.glyphicon-star
+          .glyphicon.glyphicon-star
+          .glyphicon.glyphicon-star
+          .glyphicon.glyphicon-star-empty
       .row
         = render :partial => "lista_comentarios"

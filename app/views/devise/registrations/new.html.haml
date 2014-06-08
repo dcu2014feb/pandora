@@ -21,6 +21,8 @@
 
       .form-group
         = f.label :nombre
+        %span.label.label-warning
+          necesario
         = f.text_field :nombre, :autofocus => true, :class => "form-control"
 
       .form-group
@@ -29,14 +31,20 @@
 
       .form-group
         = f.label :email
+        %span.label.label-warning
+          necesario
         = f.email_field :email, :autofocus => true, :class => "form-control"
 
       .form-group
         = f.label :password, "Contraseña"
+        %span.label.label-warning
+          necesario
         = f.password_field :password, :class => "form-control"
 
       .form-group
         = f.label :password_confirmation, "Contraseña (confirmación)"
+        %span.label.label-warning
+          necesario
         = f.password_field :password_confirmation, :class => "form-control"
 
       .form-group

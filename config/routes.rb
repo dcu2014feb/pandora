@@ -1,5 +1,7 @@
 Walko::Application.routes.draw do
 
+  get "valoracion/get"
+  get "valoracion/send"
   get "busqueda/new"
   get "busqueda/index"
 
@@ -17,6 +19,9 @@ Walko::Application.routes.draw do
 
   get "poblacion/:id" => "poblacion#show"
   devise_for :usuarios
+
+  get "valoracion/:ldi_id" => "valoracion#get"
+  post "valoracion/:ldi_id" => "valoracion#send"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -18,7 +18,7 @@
           = @ldi.descripcion
       .row
         %strong.lead
-          Danos tu opinión
+          Ofrece tu opinión
       .row
         -# Nuevo comentario
         -# Fixme: Evitar hardcodear ruta
@@ -41,11 +41,28 @@
           .form-group.text-right.pull-right
             = f.submit "Enviar", :class => "btn btn-default"
 
-        .pull-left
-          .glyphicon.glyphicon-star
-          .glyphicon.glyphicon-star
-          .glyphicon.glyphicon-star
-          .glyphicon.glyphicon-star
-          .glyphicon.glyphicon-star-empty
+        - if !current_usuario.nil?
+          -# Valoración
+          #valoracion.pull-left
+            - v = @ldi.valoracions.where("usuario_id = ?",current_usuario.id).first
+            - if !v.nil?
+              - puntuacion = v.puntuacion
+            - else
+              - puntuacion = 0
+
+            :javascript
+              $('#valoracion').raty({
+                score: "#{puntuacion}",
+                half: true,
+                size: 20,
+                path: '/assets',
+                click: function(score, evt) {
+                  $.ajax({
+                    url: '/valoracion/#{@ldi.id}',
+                    type: 'POST',
+                    data: { score: score }
+                  });
+                }
+              });
       .row
         = render :partial => "lista_comentarios"

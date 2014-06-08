@@ -1,9 +1,20 @@
-- unless @resultados.empty?
-  .container
-    .col-lg-2
-    .col-lg-8
+.container
+  .col-lg-2
+  .col-lg-8
+    - unless @resultados.empty?
       .row
         = render :partial => "ordenar_filtrar"
       .row
         = render :partial => "resultados_busqueda"
-    .col-lg-2
+    - else  # res.empty?
+      %h2.row.text-center
+        %small
+          %p
+            La busqueda no ha generado ningún resultado.
+          %p
+            Por favor, vuelve hacia
+            %span
+              = link_to :back do
+                atrás
+            , y utiliza otros parámetros de búsqueda.
+  .col-lg-2

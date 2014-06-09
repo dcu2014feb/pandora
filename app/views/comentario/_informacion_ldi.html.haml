@@ -30,60 +30,7 @@
         });
 
   /Información
-  .row
-    %dl.dl-horizontal
-      %dt
-        Ciudad
-        %dd
-          = @ldi.poblacion.nombre
-      %dt
-        Categoria
-        %dd
-          - case @ldi.categoria
-            - when "bar_pub"
-              %span.glyphicon.glyphicon-glass
-              Bar/Pub
-            - when "restaurante"
-              %span.glyphicon.glyphicon-cutlery
-              Restaurante
-            - when "naturaleza"
-              %span.glyphicon.glyphicon-tree-deciduous
-              Naturaleza
-            - when "cultural"
-              %span.glyphicon.glyphicon-tower
-              Cultural
-            - when "alojamiento"
-              %span.glyphicon.glyphicon-home
-              Alojamiento
-      %dt
-        Valoración
-        %dd
-          - val = calcular_valoraciones @ldi.id
-
-          - if val == -1
-            Sin valoraciones
-          - else
-            - val.times do
-              %span.glyphicon.glyphicon-star
-            - (5-val).times do
-              %span.glyphicon.glyphicon-star-empty
-      - if (@ldi.direccion != nil && !@ldi.direccion.empty?)
-        %dt
-          Dirección
-          %dd
-            = @ldi.direccion
-      - if (@ldi.cod_postal != nil && !@ldi.cod_postal.empty?)
-        %dt
-          Código postal
-          %dd
-            = @ldi.cod_postal
-      - if (@ldi.telefono != nil && !@ldi.telefono.empty?)
-        %dt
-          Teléfono
-          %dd
-            = @ldi.telefono
-      - if (@ldi.email != nil && !@ldi.email.empty?)
-        %dt
-          Email
-          %dd
-            = @ldi.email
+  .row.text-center.visible-xs.visible-sm.hidden-md.hidden-lg
+    = render :partial => "parametros_ldi"
+  .row.hidden-xs.hidden-sm.visible-md.visible-lg
+    = render :partial => "parametros_ldi"

@@ -5,17 +5,25 @@
       %span.caret
     %ul.dropdown-menu
       %li
-        %a{:href => "#"}
-          %span.glyphicon-sort-by-order
+        = link_to :controller => "busqueda", :action => "index", :orden => "relevancia", :filtro => params[:filtro],
+        :query => params[:query] do
+          %span.glyphicon.glyphicon-exclamation-sign
+          Relevancia
+        = link_to :controller => "busqueda", :action => "index", :orden => "fecha", :filtro => params[:filtro],
+        :query => params[:query] do
+          %span.glyphicon.glyphicon-time
           Fecha
-        %a{:href => "#"}
-          %span.glyphicon-sort-by-alphabet-alt
+        = link_to :controller => "busqueda", :action => "index", :orden => "nombre", :filtro => params[:filtro],
+        :query => params[:query] do
+          %span.glyphicon.glyphicon-sort-by-alphabet-alt
           Nombre
-        %a{:href => "#"}
+        = link_to :controller => "busqueda", :action => "index", :orden => "valoracion", :filtro => params[:filtro],
+        :query => params[:query] do
           %span.glyphicon.glyphicon-star
           Valoración
-        %a{:href => "#"}
-          %span.glyphicon.glyphicon-sort-by-attributes
+        = link_to :controller => "busqueda", :action => "index", :orden => "comentarios", :filtro => params[:filtro],
+        :query => params[:query] do
+          %span.glyphicon.glyphicon-sort-by-attributes-alt
           Comentarios
   .btn-group
     %button{:type => "button", :class => "btn btn-default dropdown-toggle", "data-toggle" => "dropdown"}
@@ -23,20 +31,29 @@
       %span.caret
     %ul.dropdown-menu
       %li
-        %a{:href => "#"}
+        = link_to :controller => "busqueda", :action => "index", :filtro => "todo", :orden => params[:orden],
+        :query => params[:query] do
           Todos
-        %a{:href => "#"}
+        = link_to :controller => "busqueda", :action => "index", :filtro => "naturaleza", :orden => params[:orden],
+        :query => params[:query] do
           %span.glyphicon.glyphicon-tree-deciduous
           Naturaleza
-        %a{:href => "#"}
+        = link_to :controller => "busqueda", :action => "index", :filtro => "restaurante", :orden => params[:orden],
+        :query => params[:query] do
           %span.glyphicon.glyphicon-cutlery
           Restaurantes
-        %a{:href => "#"}
+        = link_to :controller => "busqueda", :action => "index", :filtro => "bar_pub", :orden => params[:orden],
+        :query => params[:query] do
           %span.glyphicon.glyphicon-glass
           Bares y pubs
-        %a{:href => "#"}
+        = link_to :controller => "busqueda", :action => "index", :filtro => "alojamiento", :orden => params[:orden],
+        :query => params[:query] do
           %span.glyphicon.glyphicon-home
           Alojamientos
-        %a{:href => "#"}
+        = link_to :controller => "busqueda", :action => "index", :filtro => "cultura", :orden => params[:orden],
+        :query => params[:query] do
           %span.glyphicon.glyphicon-tower
-          Cultura
+          Cultural
+        = link_to :controller => "busqueda", :action => "index", :filtro => "poblacion", :orden => params[:orden],
+        :query => params[:query] do
+          Poblaciones

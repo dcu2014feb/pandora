@@ -16,6 +16,8 @@
 
   .form-group
     = f.label :nombre
+    %span.label.label-warning
+      necesario
     = f.text_field :nombre, :autofocus => true, :class => "form-control"
 
   .form-group
@@ -26,14 +28,20 @@
   .form-group
     = f.label :direccion, "Dirección"
     = f.text_field :direccion, :autofocus => true, :class => "form-control"
+    %small.help-block
+      Si se deja en blanco, se intentará rellenar con datos de Google Places.
 
   .form-group
     = f.label :cod_postal, "Código postal"
     = f.text_field :cod_postal, :autofocus => true, :class => "form-control"
+    %small.help-block
+      Si se deja en blanco, se intentará rellenar con datos de Google Places.
 
   = fields_for :poblacion, @ldi.poblacion do |pob|
     .form-group
       = pob.label :nombre, "Nombre de población"
+      %span.label.label-warning
+        necesario
       = pob.text_field :nombre, :autofocus => false, :class => "form-control"
 
   .form-group
@@ -46,17 +54,18 @@
 
   .form-group
     = f.label :descripcion
+    %span.label.label-warning
+      necesario
     = f.text_area :descripcion, :autofocus => false, :class => "form-control"
 
   .form-group
-    .form-group
-      = f.label :image, "Imagen"
-      %i
-        (La imagen será subida después de actualizar el perfil)
-    .form-group
-      = image_tag @ldi.image, :class => "responsive-image img-thumbnail center-block"
+    = f.label :image, "Imagen"
+    = image_tag @ldi.image, :class => "responsive-image img-thumbnail center-block"
     .form-group
       = f.file_field :image, :class => "form-control"
+      %small.help-block
+        Si se deja en blanco, se intentará rellenar con datos de Google Places.
+        La imagen será subida después de actualizar el perfil.
 
   .text-right
     = f.submit "Actualizar", :class => "btn btn-default pull-right"

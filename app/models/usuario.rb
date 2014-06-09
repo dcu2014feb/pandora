@@ -8,6 +8,7 @@ class Usuario < ActiveRecord::Base
 
   validates :nombre, :presence => true
   validates :email, :presence => true, :format =>  {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
+  validates :password, :presence => true
   validates_confirmation_of :password
 
   has_many :ldis

@@ -18,7 +18,7 @@
           = @ldi.descripcion
       .row
         %strong.lead
-          COMENTARIOS
+          Ofrece tu opinión
       .row
         -# Nuevo comentario
         -# Fixme: Evitar hardcodear ruta
@@ -36,10 +36,33 @@
                         = msg.split(' ')[0]
                       = msg.split(' ')[1..-1].join(' ')
 
-          -# Fixme: Escriba el comentario.... -> Como PLACEHOLDER
           .form-group
             = f.text_area :texto, :class => "form-control", :placeholder => "Escribe tu comentario..."
-          .form-group.text-right
+          .form-group.text-right.pull-right
             = f.submit "Enviar", :class => "btn btn-default"
+
+        - if !current_usuario.nil?
+          -# Valoración
+          #valoracion.pull-left
+            - v = @ldi.valoracions.where("usuario_id = ?",current_usuario.id).first
+            - if !v.nil?
+              - puntuacion = v.puntuacion
+            - else
+              - puntuacion = 0
+
+            :javascript
+              $('#valoracion').raty({
+                score: "#{puntuacion}",
+                half: true,
+                size: 20,
+                path: '/assets',
+                click: function(score, evt) {
+                  $.ajax({
+                    url: '/valoracion/#{@ldi.id}',
+                    type: 'POST',
+                    data: { score: score }
+                  });
+                }
+              });
       .row
         = render :partial => "lista_comentarios"

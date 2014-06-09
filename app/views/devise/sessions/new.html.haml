@@ -8,7 +8,9 @@
       = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         .form-group.row
           .col-lg-2
-          .col-lg-2.text-right
+          .visible-xs.visible-sm.col-xs-2.col-sm-2.text-left.hidden-md.hidden-lg
+            = f.label :email, :class => "control-label"
+          .visible-md.visible-lg.col-md-2.col-lg-2.text-right.hidden-xs.hidden-sm
             = f.label :email, :class => "control-label"
           .col-lg-5
             = f.email_field :email, :autofocus => true, :class => "form-control"
@@ -16,7 +18,9 @@
 
         .form-group.row
           .col-lg-2
-          .col-lg-2.text-right
+          .visible-xs.visible-sm.col-xs-2.col-sm-2.text-left.hidden-md.hidden-lg
+            = f.label :password, :class => "control-label"
+          .visible-md.visible-lg.col-md-2.col-lg-2.text-right.hidden-xs.hidden-sm
             = f.label :password, :class => "control-label"
           .col-lg-5
             = f.password_field :password, :class => "form-control"
